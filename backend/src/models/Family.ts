@@ -11,11 +11,18 @@ export interface IFamily extends Document {
 
   relationToGroom?: string;
   category?: string;
+  group:
+    | "mom_side"
+    | "dad_side"
+    | "grandmother_side"
+    | "brothers_friends"
+    | "business_friends"
+    | "others";
 
   invitedCount: number;
   confirmedCount: number;
 
-  status: "pending" | "confirmed" | "declined" | "partial";
+  status: "pending" | "confirmed" | "declined";
 
   guestType: "local" | "outstation";
 
@@ -73,6 +80,19 @@ const familySchema = new Schema<IFamily>(
       trim: true,
     },
 
+    group: {
+      type: String,
+      enum: [
+        "mom_side",
+        "dad_side",
+        "grandmother_side",
+        "brothers_friends",
+        "business_friends",
+        "others",
+      ],
+      required: true,
+    },
+
     invitedCount: {
       type: Number,
       required: true,
@@ -87,7 +107,7 @@ const familySchema = new Schema<IFamily>(
 
     status: {
       type: String,
-      enum: ["pending", "confirmed", "declined", "partial"],
+      enum: ["pending", "confirmed", "declined"],
       default: "pending",
     },
 
