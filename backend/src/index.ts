@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./lib/db.js";
+import familyRoutes from "./routes/family.routes.js";
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ app.get("/", (req: Request, res: Response) => {
     message: "Wedding Guest API is running",
   });
 });
+
+app.use("/api/v1/families", familyRoutes);
 
 app.listen(PORT, (): void => {
   console.log(`Server is running at ${PORT}`);
