@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wedding Desk</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f2f5f3;
+        --sf: #fff;
+        --ink: #17302d;
+        --mu: #667873;
+        --ln: #dde5e1;
+        --pr: #14504a;
+        --pr2: #e1eeeb;
+        --gd: #c98a1b;
+        --gd2: #fbf0d9;
+        --ro: #a8374f;
+        --ro2: #f8e3e8;
+        --r: 14px;
+        --hf: "Fraunces", Georgia, serif;
+        --bf: "DM Sans", system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        font: 15px/1.45 var(--bf);
+        background: var(--bg);
+        color: var(--ink);
+        padding-bottom: 70px;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--hf);
+        font-weight: 700;
+      }
+      h1 {
+        font-size: 26px;
+        margin-bottom: 4px;
+      }
+      h2 {
+        font-size: 19px;
+        margin: 20px 0 10px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      .side {
+        display: none;
+      }
+      nav.bot {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        background: var(--sf);
+        border-top: 1px solid var(--ln);
+        z-index: 20;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      nav button {
+        flex: 1;
+        border: 0;
+        background: none;
+        padding: 11px 0;
+        font-size: 11px;
+        color: var(--mu);
+      }
+      nav button.on {
+        color: var(--pr);
+        font-weight: 700;
+        box-shadow: inset 0 3px var(--gd);
+      }
+      main {
+        padding: 18px 14px;
+        max-width: 1100px;
+        margin: auto;
+      }
+      .sub {
+        color: var(--mu);
+        margin-bottom: 14px;
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .cards {
+        display: grid;
+        gap: 12px;
+      }
+      .card {
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        border-radius: var(--r);
+        padding: 14px;
+      }
+      .stat b {
+        font: 700 28px var(--hf);
+        display: block;
+        color: var(--pr);
+      }
+      .stat span {
+        color: var(--mu);
+        font-size: 13px;
+      }
+      .stat.hot b {
+        color: var(--ro);
+      }
+      .btn {
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        border-radius: 10px;
+        padding: 9px 13px;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+      }
+      a.btn {
+        color: var(--ink);
+      }
+      .btn.p {
+        background: var(--pr);
+        color: #fff;
+        border-color: var(--pr);
+      }
+      .btn.s {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+      .btn:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid var(--gd);
+        outline-offset: 1px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .sp {
+        justify-content: space-between;
+      }
+      .pill {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 2px 9px;
+        border-radius: 99px;
+        background: var(--pr2);
+        color: var(--pr);
+      }
+      .pill.Pending,
+      .pill.pend {
+        background: var(--gd2);
+        color: #8a5d0b;
+      }
+      .pill.Declined,
+      .pill.fail {
+        background: var(--ro2);
+        color: var(--ro);
+      }
+      .mu {
+        color: var(--mu);
+        font-size: 13px;
+      }
+      .bar {
+        height: 8px;
+        background: var(--ln);
+        border-radius: 9px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--pr);
+      }
+      .tools {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 14px;
+      }
+      .tools input {
+        grid-column: 1/-1;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--ln);
+        border-radius: 10px;
+        background: var(--sf);
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        color: var(--mu);
+        margin: 10px 0 4px;
+      }
+      .fam {
+        border-left: 4px solid var(--pr);
+      }
+      .fam.Pending {
+        border-color: var(--gd);
+      }
+      .fam.Declined {
+        border-color: var(--ro);
+      }
+      .acts {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .acts .btn {
+        padding: 8px 0;
+        text-align: center;
+        font-size: 13px;
+      }
+      .kv {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 4px 10px;
+        font-size: 14px;
+      }
+      .kv dt {
+        color: var(--mu);
+      }
+      .kv dd {
+        margin: 0;
+      }
+      .ov {
+        position: fixed;
+        inset: 0;
+        background: #0a1a1880;
+        z-index: 50;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .md {
+        background: var(--bg);
+        width: 100%;
+        max-height: 92vh;
+        overflow: auto;
+        border-radius: 20px 20px 0 0;
+        padding: 18px 16px 26px;
+        max-width: 640px;
+      }
+      .chip {
+        display: inline-block;
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        border-radius: 99px;
+        padding: 6px 12px;
+        margin: 0 6px 6px 0;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      .chip.on {
+        background: var(--pr);
+        color: #fff;
+        border-color: var(--pr);
+      }
+      .send {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .send .chip {
+        border-radius: 12px;
+        padding: 12px;
+        margin: 0;
+      }
+      .wa {
+        background: #e5ddd5;
+        border-radius: var(--r);
+        padding: 16px;
+      }
+      .bub {
+        background: #dcf8c6;
+        border-radius: 4px 14px 14px 14px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+        max-width: 92%;
+        box-shadow: 0 1px 1px #0002;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+      .rl {
+        max-height: 190px;
+        overflow: auto;
+        border: 1px solid var(--ln);
+        border-radius: 10px;
+        background: var(--sf);
+        margin-top: 6px;
+      }
+      .rl label {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 0;
+        padding: 9px 10px;
+        color: var(--ink);
+        font-size: 14px;
+        border-bottom: 1px solid var(--ln);
+      }
+      .rl input {
+        width: auto;
+      }
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 84px;
+        transform: translateX(-50%);
+        background: var(--ink);
+        color: #fff;
+        padding: 11px 18px;
+        border-radius: 12px;
+        z-index: 99;
+        opacity: 0;
+        transition: 0.25s;
+        pointer-events: none;
+        max-width: 90%;
+      }
+      #toast.on {
+        opacity: 1;
+      }
+      #toast.err {
+        background: var(--ro);
+      }
+      @media (min-width: 900px) {
+        body {
+          padding: 0 0 0 230px;
+        }
+        nav.bot {
+          display: none;
+        }
+        .side {
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          inset: 0 auto 0 0;
+          width: 230px;
+          background: var(--pr);
+          color: #fff;
+          padding: 26px 14px;
+        }
+        .side h2 {
+          color: #fff;
+          margin: 0 8px 2px;
+          font-size: 22px;
+        }
+        .side p {
+          margin: 0 8px 24px;
+          color: #b9d3cf;
+          font-size: 13px;
+        }
+        .side button {
+          display: block;
+          width: 100%;
+          text-align: left;
+          background: none;
+          border: 0;
+          color: #cfe3df;
+          padding: 11px 12px;
+          border-radius: 10px;
+          cursor: pointer;
+          margin-bottom: 2px;
+        }
+        .side button.on {
+          background: #ffffff1c;
+          color: #fff;
+          font-weight: 700;
+          box-shadow: inset 3px 0 var(--gd);
+        }
+        main {
+          padding: 34px 36px;
+        }
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .tools {
+          grid-template-columns: 2fr repeat(5, 1fr);
+        }
+        .tools input {
+          grid-column: auto;
+        }
+        .ov {
+          align-items: center;
+        }
+        .md {
+          border-radius: 20px;
+          padding: 24px;
+        }
+        #toast {
+          bottom: 30px;
+        }
+        .two {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          align-items: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="side">
+      <h2>Wedding Desk</h2>
+      <p>Guests, stays &amp; rides</p>
+      <div id="sn"></div>
+    </aside>
+    <main id="v"></main>
+    <nav class="bot" id="bn"></nav>
+    <div id="toast"></div>
+    <script>
+      // ---------- DATA (mirrors future TS types) ----------
+      const TODAY = "12 Dec";
+      const SENDERS = { Mom: "+91 98XXX 11111", Dad: "+91 97XXX 22222" };
+      const NAV = [
+        ["dash", "Home"],
+        ["fam", "Families"],
+        ["trv", "Travel"],
+        ["room", "Rooms"],
+        ["veh", "Cars"],
+        ["wa", "WhatsApp"],
+        ["his", "History"],
+      ];
+      const ar = (d, t, m, n, l, f, p) => ({ d, t, m, n, l, f, p }); // travel leg
+      let F = [
+        [
+          1,
+          "Sharma",
+          "Sharma Ji",
+          "+91 98200 10001",
+          "Mumbai",
+          "Mother's side",
+          "Relatives",
+          "High",
+          5,
+          4,
+          "Confirmed",
+          1,
+          "Elder uncle, needs ground-floor room",
+          {
+            a: ar(
+              "12 Dec",
+              "3:30 PM",
+              "Flight",
+              "AI123",
+              "Ahmedabad Airport",
+              "Mumbai",
+              1,
+            ),
+            d: ar(
+              "15 Dec",
+              "11:00 AM",
+              "Flight",
+              "AI124",
+              "Ahmedabad Airport",
+              "Mumbai",
+              1,
+            ),
+          },
+        ],
+        [
+          2,
+          "Patel",
+          "Patel Ji",
+          "+91 98250 10002",
+          "Surat",
+          "Neighbours",
+          "Friends",
+          "Medium",
+          4,
+          4,
+          "Confirmed",
+          0,
+          "",
+          null,
+        ],
+        [
+          3,
+          "Mehta",
+          "Mehta Ji",
+          "+91 98250 10003",
+          "Ahmedabad",
+          "Father's friend",
+          "Friends",
+          "Medium",
+          3,
+          0,
+          "Pending",
+          1,
+          "Call after Diwali plans settle",
+          null,
+        ],
+        [
+          4,
+          "Joshi",
+          "Joshi Ji",
+          "+91 98110 10004",
+          "Delhi",
+          "Father's side",
+          "Relatives",
+          "High",
+          6,
+          5,
+          "Confirmed",
+          1,
+          "",
+          {
+            a: ar(
+              "12 Dec",
+              "6:10 PM",
+              "Train",
+              "12952",
+              "Surat Station",
+              "Delhi",
+              1,
+            ),
+            d: ar(
+              "16 Dec",
+              "9:00 AM",
+              "Train",
+              "12951",
+              "Surat Station",
+              "Delhi",
+              1,
+            ),
+          },
+        ],
+        [
+          5,
+          "Desai",
+          "Desai Ji",
+          "+91 98250 10005",
+          "Surat",
+          "Colleague",
+          "Work",
+          "Low",
+          2,
+          0,
+          "Pending",
+          0,
+          "",
+          null,
+        ],
+        [
+          6,
+          "Iyer",
+          "Iyer Ji",
+          "+91 98400 10006",
+          "Chennai",
+          "Bride's side",
+          "Relatives",
+          "Medium",
+          4,
+          0,
+          "Declined",
+          1,
+          "Sent regrets, travelling abroad",
+          null,
+        ],
+        [
+          7,
+          "Shah",
+          "Shah Ji",
+          "+91 98240 10007",
+          "Vadodara",
+          "Mother's side",
+          "Relatives",
+          "High",
+          5,
+          3,
+          "Confirmed",
+          1,
+          "",
+          {
+            a: ar("11 Dec", "5:00 PM", "Car", "-", "Hotel", "Vadodara", 0),
+            d: ar("12 Dec", "8:00 PM", "Car", "-", "Hotel", "Vadodara", 1),
+          },
+        ],
+        [
+          8,
+          "Trivedi",
+          "Trivedi Ji",
+          "+91 98250 10008",
+          "Surat",
+          "Family friend",
+          "Friends",
+          "Medium",
+          3,
+          3,
+          "Confirmed",
+          0,
+          "",
+          null,
+        ],
+        [
+          9,
+          "Kapoor",
+          "Kapoor Ji",
+          "+91 98900 10009",
+          "Pune",
+          "College friend",
+          "Friends",
+          "Low",
+          4,
+          0,
+          "Pending",
+          1,
+          "",
+          null,
+        ],
+        [
+          10,
+          "Nair",
+          "Nair Ji",
+          "+91 98450 10010",
+          "Bengaluru",
+          "Cousin",
+          "Relatives",
+          "High",
+          2,
+          2,
+          "Confirmed",
+          1,
+          "",
+          {
+            a: ar(
+              "12 Dec",
+              "9:00 PM",
+              "Flight",
+              "6E512",
+              "Surat Airport",
+              "Bengaluru",
+              1,
+            ),
+            d: ar(
+              "14 Dec",
+              "7:30 AM",
+              "Flight",
+              "6E511",
+              "Surat Airport",
+              "Bengaluru",
+              1,
+            ),
+          },
+        ],
+        [
+          11,
+          "Bhatt",
+          "Bhatt Ji",
+          "+91 98250 10011",
+          "Rajkot",
+          "Father's side",
+          "Relatives",
+          "High",
+          6,
+          0,
+          "Pending",
+          1,
+          "Large group, ask for headcount",
+          null,
+        ],
+        [
+          12,
+          "Gupta",
+          "Gupta Ji",
+          "+91 98290 10012",
+          "Jaipur",
+          "Father's friend",
+          "Friends",
+          "Medium",
+          3,
+          3,
+          "Confirmed",
+          1,
+          "",
+          {
+            a: ar(
+              "13 Dec",
+              "10:00 AM",
+              "Train",
+              "12957",
+              "Surat Station",
+              "Jaipur",
+              1,
+            ),
+            d: ar(
+              "14 Dec",
+              "6:00 PM",
+              "Train",
+              "12958",
+              "Surat Station",
+              "Jaipur",
+              1,
+            ),
+          },
+        ],
+      ].map((a) => ({
+        id: a[0],
+        name: a[1],
+        contact: a[2],
+        phone: a[3],
+        city: a[4],
+        relation: a[5],
+        category: a[6],
+        priority: a[7],
+        invited: a[8],
+        confirmed: a[9],
+        status: a[10],
+        outstation: !!a[11],
+        notes: a[12],
+        travel: a[13],
+      }));
+      let R = [
+        [101, "Standard", 2],
+        [102, "Standard", 2],
+        [103, "Standard", 2],
+        [201, "Deluxe", 3],
+        [202, "Deluxe", 3],
+        [203, "Deluxe", 3],
+        [301, "Suite", 4],
+        [302, "Suite", 4],
+        [303, "Suite", 4],
+      ].map((a) => ({ no: a[0], type: a[1], cap: a[2], notes: "" }));
+      let A = [
+        [1, 201, 3],
+        [1, 202, 2],
+        [4, 301, 4],
+        [4, 302, 3],
+        [7, 203, 3],
+        [10, 101, 2],
+        [12, 102, 2],
+        [12, 103, 1],
+      ].map((a, i) => ({ id: i + 1, fam: a[0], room: a[1], people: a[2] })); // Room Allocation
+      let V = [
+        ["Innova 1", "GJ05 AB 1001", "Ramesh", "+91 99000 00001", 6],
+        ["Innova 2", "GJ05 AB 1002", "Suresh", "+91 99000 00002", 6],
+        ["Ertiga", "GJ05 CD 2003", "Mahesh", "+91 99000 00003", 5],
+        ["Dzire", "GJ05 EF 3004", "Kishan", "+91 99000 00004", 3],
+        ["Swift", "GJ05 EF 3005", "Hitesh", "+91 99000 00005", 3],
+      ].map((a, i) => ({
+        id: i + 1,
+        name: a[0],
+        no: a[1],
+        driver: a[2],
+        dphone: a[3],
+        cap: a[4],
+        notes: "",
+      }));
+      let X = [
+        [1, 1, "Pickup", "12 Dec", "3:30 PM", "Ahmedabad Airport"],
+        [4, 1, "Pickup", "12 Dec", "6:10 PM", "Surat Station"],
+        [10, 2, "Pickup", "12 Dec", "9:00 PM", "Surat Airport"],
+        [7, 3, "Drop", "12 Dec", "8:00 PM", "Hotel to Vadodara"],
+        [12, 3, "Pickup", "13 Dec", "10:00 AM", "Surat Station"],
+        [1, 1, "Drop", "15 Dec", "11:00 AM", "Ahmedabad Airport"],
+      ].map((a, i) => ({
+        id: i + 1,
+        fam: a[0],
+        veh: a[1],
+        type: a[2],
+        date: a[3],
+        time: a[4],
+        loc: a[5],
+      })); // Vehicle Assignment
+      let C = [
+        {
+          id: 1,
+          when: "8 Dec, 7:40 PM",
+          sender: "Mom",
+          tpl: "Wedding Invitation",
+          rec: [
+            [1, "Sent"],
+            [2, "Sent"],
+            [3, "Failed"],
+            [4, "Sent"],
+          ],
+        },
+        {
+          id: 2,
+          when: "10 Dec, 11:15 AM",
+          sender: "Dad",
+          tpl: "RSVP",
+          rec: [
+            [3, "Sent"],
+            [5, "Sent"],
+            [9, "Sent"],
+            [11, "Failed"],
+          ],
+        },
+        {
+          id: 3,
+          when: "11 Dec, 4:00 PM",
+          sender: "Mom",
+          tpl: "Travel Information",
+          rec: [
+            [1, "Sent"],
+            [4, "Sent"],
+            [10, "Sent"],
+            [12, "Sent"],
+          ],
+        },
+      ];
+      const TPL = {
+        inv: [
+          "Wedding Invitation",
+          "Namaste {{primaryContact}} Ji,\n\nWe are delighted to invite the {{family}} family from {{city}} to celebrate the wedding with us.\n\nLooking forward to seeing you!",
+        ],
+        rsvp: [
+          "RSVP",
+          "Namaste {{primaryContact}} Ji, could you please confirm how many members of the {{family}} family will join us? Thank you!",
+        ],
+        trv: [
+          "Travel Information",
+          "Namaste {{primaryContact}} Ji, we have noted your arrival on {{arrivalDate}} at {{arrivalTime}}. Our car {{vehicle}} will receive you.",
+        ],
+        stay: [
+          "Accommodation",
+          "Namaste {{primaryContact}} Ji, your stay is arranged at {{hotel}}, room(s) {{room}}. Please call us if you need anything.",
+        ],
+        pickup: [
+          "Pickup",
+          "Namaste {{primaryContact}} Ji, {{vehicle}} will pick up the {{family}} family on {{arrivalDate}} at {{arrivalTime}}.",
+        ],
+        custom: ["Custom", "Namaste {{primaryContact}} Ji, "],
+      };
+      const S = {
+        view: "dash",
+        q: "",
+        fl: { status: "", loc: "", priority: "", category: "", city: "" },
+        sender: "Mom",
+        sel: new Set(),
+        tpl: "inv",
+        msg: TPL.inv[1],
+        media: "",
+      };
+      // ---------- HELPERS ----------
+      const $ = (s) => document.querySelector(s),
+        fam = (id) => F.find((f) => f.id == id),
+        veh = (id) => V.find((v) => v.id == id);
+      const fname = (f) => f.name + " Family",
+        roomsOf = (id) => A.filter((a) => a.fam == id),
+        vOf = (id) => X.filter((x) => x.fam == id);
+      const uniq = (k) => [...new Set(F.map((f) => f[k]))].sort();
+      function toast(m, err) {
+        const t = $("#toast");
+        t.textContent = m;
+        t.className = "on" + (err ? " err" : "");
+        clearTimeout(toast.t);
+        toast.t = setTimeout(() => (t.className = ""), 2600);
+      }
+      function modal(h) {
+        closeM();
+        const o = document.createElement("div");
+        o.className = "ov";
+        o.id = "ov";
+        o.onclick = (e) => {
+          if (e.target == o) closeM();
+        };
+        o.innerHTML = `<div class="md">${h}</div>`;
+        document.body.appendChild(o);
+      }
+      function closeM() {
+        const o = $("#ov");
+        if (o) o.remove();
+      }
+      const opts = (arr, sel) =>
+        arr
+          .map((a) => {
+            const [v, l] = Array.isArray(a) ? a : [a, a];
+            return `<option value="${v}" ${v == sel ? "selected" : ""}>${l}</option>`;
+          })
+          .join("");
+      const pill = (s) => `<span class="pill ${s}">${s}</span>`;
+      function go(v) {
+        S.view = v;
+        closeM();
+        render();
+        scrollTo(0, 0);
+      }
+      // ---------- TEMPLATE ENGINE ----------
+      function fill(text, f) {
+        const t = f.travel && f.travel.a,
+          rs = roomsOf(f.id).map((a) => a.room),
+          pk = vOf(f.id).find((x) => x.type == "Pickup"),
+          v = pk && veh(pk.veh);
+        const m = {
+          family: fname(f),
+          primaryContact: f.contact.replace(/ Ji$/, ""),
+          city: f.city,
+          arrivalDate: t ? t.d : "(date to be shared)",
+          arrivalTime: t ? t.t : "(time to be shared)",
+          hotel: rs.length ? "Hotel Grand Surat" : "(hotel to be shared)",
+          room: rs.length ? rs.join(", ") : "(to be assigned)",
+          vehicle: v ? v.name + " (" + v.no + ")" : "(to be assigned)",
+        };
+        return text.replace(/\{\{(\w+)\}\}/g, (x, k) => m[k] ?? x);
+      }
+      // ---------- VIEWS ----------
+      function render() {
+        const nav = NAV.map(
+          (n) =>
+            `<button class="${S.view == n[0] ? "on" : ""}" onclick="go('${n[0]}')">${n[1]}</button>`,
+        ).join("");
+        $("#sn").innerHTML = nav;
+        $("#bn").innerHTML = nav;
+        $("#v").innerHTML = {
+          dash: vDash,
+          fam: vFam,
+          trv: vTrv,
+          room: vRoom,
+          veh: vVeh,
+          wa: vWa,
+          his: vHis,
+        }[S.view]();
+      }
+      function famCard(f) {
+        return `<div class="card fam ${f.status}"><div class="row sp" onclick="detail(${f.id})" style="cursor:pointer"><div><h3>${fname(f)}</h3><div class="mu">${f.contact} · ${f.city} · ${f.outstation ? "Outstation" : "Local"}</div></div>${pill(f.status)}</div>
+<div class="mu" style="margin-top:8px">${f.relation} · ${f.category} · ${f.priority} priority</div>
+<div style="margin-top:6px"><b>${f.confirmed}</b> confirmed ${f.notes ? `<div class="mu">${f.notes}</div>` : ""}</div>
+<div class="acts"><button class="btn" onclick="waTo(${f.id})">Chat</button><a class="btn" href="tel:${f.phone.replace(/\s/g, "")}">Call</a><button class="btn" onclick="allocM(${f.id})">Room</button><button class="btn" onclick="assignM(${f.id})">Pickup</button><button class="btn" onclick="famM(${f.id})">Edit</button></div></div>`;
+      }
+      function vDash() {
+        const out = F.filter((f) => f.outstation),
+          rooms = new Set(A.map((a) => a.room)).size,
+          arr = F.filter((f) => f.travel && f.travel.a.d == TODAY),
+          dep = F.filter((f) => f.travel && f.travel.d.d == TODAY);
+        const need = F.filter(
+          (f) =>
+            f.status == "Pending" ||
+            (f.status == "Confirmed" && f.outstation && !roomsOf(f.id).length),
+        );
+        const st = [
+          ["Families", F.length],
+          ["Invited people", F.reduce((s, f) => s + f.invited, 0)],
+          ["Confirmed people", F.reduce((s, f) => s + f.confirmed, 0)],
+          [
+            "Pending families",
+            F.filter((f) => f.status == "Pending").length,
+            1,
+          ],
+          ["Declined families", F.filter((f) => f.status == "Declined").length],
+          ["Outstation families", out.length],
+          ["Rooms used / free", rooms + " / " + (R.length - rooms)],
+          ["Cars available", V.length],
+        ];
+        const leg = (f, k) => {
+          const l = f.travel[k],
+            p = vOf(f.id).find((x) => x.date == l.d && x.time == l.t);
+          return `<div class="card"><b>${fname(f)}</b><div>${l.t}${l.n != "-" ? " · " + l.m + " " + l.n : ""}</div><div class="mu">${l.l}</div><div style="margin-top:6px">${l[k == "a" ? "p" : "p"] ? (p ? `<span class="pill">${veh(p.veh).name} assigned</span>` : `<span class="pill Pending">${k == "a" ? "Pickup" : "Drop"} required</span>`) : '<span class="mu">No car needed</span>'}</div></div>`;
+        };
+        return `<h1>Good to see you</h1><p class="sub">Everything for the wedding, family by family.</p>
+<div class="row" style="margin-bottom:14px"><button class="btn p" onclick="famM()">Add family</button><button class="btn" onclick="go('wa')">Send WhatsApp</button><button class="btn" onclick="roomM()">Add room</button><button class="btn" onclick="vehM()">Add vehicle</button></div>
+<div class="grid">${st.map((s) => `<div class="card stat ${s[2] ? "hot" : ""}"><b>${s[1]}</b><span>${s[0]}</span></div>`).join("")}</div>
+<div class="two"><div><h2>Arriving today (${arr.length})</h2><div class="cards" style="grid-template-columns:1fr">${arr.map((f) => leg(f, "a")).join("") || '<p class="mu">No arrivals today.</p>'}</div></div>
+<div><h2>Leaving today (${dep.length})</h2><div class="cards" style="grid-template-columns:1fr">${dep.map((f) => leg(f, "d")).join("") || '<p class="mu">No departures today.</p>'}</div></div></div>
+<h2>Needs action (${need.length})</h2><div class="cards">${need.map((f) => `<div class="card row sp" onclick="detail(${f.id})" style="cursor:pointer"><div><b>${fname(f)}</b><div class="mu">${f.status == "Pending" ? "Waiting for a reply" : "Confirmed, no room yet"}</div></div>${pill(f.status)}</div>`).join("")}</div>`;
+      }
+      function vFam() {
+        const q = S.q.toLowerCase(),
+          fl = S.fl;
+        const list = F.filter(
+          (f) =>
+            (!q || (f.name + f.contact + f.city).toLowerCase().includes(q)) &&
+            (!fl.status || f.status == fl.status) &&
+            (!fl.loc || (f.outstation ? "Outstation" : "Local") == fl.loc) &&
+            (!fl.priority || f.priority == fl.priority) &&
+            (!fl.category || f.category == fl.category) &&
+            (!fl.city || f.city == fl.city),
+        );
+        const sel = (k, l, a) =>
+          `<select aria-label="${l}" onchange="S.fl.${k}=this.value;keep()"><option value="">${l}</option>${opts(a, fl[k])}</select>`;
+        return `<div class="row sp"><h1>Families</h1><button class="btn p" onclick="famM()">Add family</button></div><p class="sub">${list.length} of ${F.length} families</p>
+<div class="tools"><input id="q" placeholder="Search name, contact or city" value="${S.q}" oninput="S.q=this.value;keep()">${sel("status", "Status", ["Pending", "Confirmed", "Declined"])}${sel("loc", "Local / Out", ["Local", "Outstation"])}${sel("priority", "Priority", ["High", "Medium", "Low"])}${sel("category", "Category", uniq("category"))}${sel("city", "City", uniq("city"))}</div>
+<div class="cards">${list.map(famCard).join("") || '<p class="mu">No family matches. Clear a filter or add a new family.</p>'}</div>`;
+      }
+      function keep() {
+        const p = $("#q")?.selectionStart;
+        render();
+        const q = $("#q");
+        if (q && document.activeElement != q && S.q && p != null) {
+          q.focus();
+          q.setSelectionRange(p, p);
+        }
+      }
+      function vTrv() {
+        const l = F.filter((f) => f.travel).sort(
+          (a, b) => parseInt(a.travel.a.d) - parseInt(b.travel.a.d),
+        );
+        const L = (x, t) =>
+          x
+            ? `<div><b>${t}</b> ${x.d}, ${x.t}<div class="mu">${x.m} ${x.n != "-" ? x.n : ""} · ${x.l} · ${t == "Arrives" ? "from " : "to "}${x.f}</div></div>`
+            : "";
+        return `<h1>Travel</h1><p class="sub">${l.length} families with travel details, by arrival date.</p><div class="cards">${l.map((f) => `<div class="card"><div class="row sp"><h3>${fname(f)}</h3><button class="btn s" onclick="detail(${f.id})">Open</button></div>${L(f.travel.a, "Arrives")}<div style="height:8px"></div>${L(f.travel.d, "Leaves")}</div>`).join("")}</div>`;
+      }
+      function vRoom() {
+        const used = new Set(A.map((a) => a.room)).size,
+          cap = R.reduce((s, r) => s + r.cap, 0),
+          occ = A.reduce((s, a) => s + a.people, 0);
+        return `<div class="row sp"><h1>Rooms</h1><button class="btn p" onclick="roomM()">Add room</button></div><p class="sub">${R.length} rooms · ${used} allocated · ${R.length - used} available · ${occ} of ${cap} beds filled</p><div class="bar"><i style="width:${(occ / cap) * 100}%"></i></div><div style="height:14px"></div>
+<div class="cards">${R.map((r) => {
+          const al = A.filter((a) => a.room == r.no);
+          return `<div class="card"><div class="row sp"><h3>Room ${r.no}</h3><span class="pill ${al.length ? "" : "pend"}">${al.length ? "Allocated" : "Available"}</span></div><div class="mu">${r.type} · sleeps ${r.cap}</div>${al.map((a) => `<div class="row sp" style="margin-top:8px"><span>${fname(fam(a.fam))} · ${a.people} people</span><button class="btn s" onclick="rmAlloc(${a.id})">Remove</button></div>`).join("")}<button class="btn s" style="margin-top:10px" onclick="allocM(0,${r.no})">Allocate to a family</button></div>`;
+        }).join("")}</div>`;
+      }
+      function vVeh() {
+        return `<div class="row sp"><h1>Vehicles</h1><button class="btn p" onclick="vehM()">Add vehicle</button></div><p class="sub">One car can serve many families at different times.</p>
+<div class="cards">${V.map((v) => {
+          const xs = X.filter((x) => x.veh == v.id);
+          return `<div class="card"><div class="row sp"><h3>${v.name}</h3><a class="btn s" href="tel:${v.dphone.replace(/\s/g, "")}">Call ${v.driver}</a></div><div class="mu">${v.no} · seats ${v.cap}</div>${xs.map((x) => `<div class="row sp" style="margin-top:8px;border-top:1px solid var(--ln);padding-top:8px"><span><b>${x.time}</b> ${x.date} · ${x.type}<br>${fname(fam(x.fam))} · ${x.loc}</span><button class="btn s" onclick="rmAssign(${x.id})">Remove</button></span></div>`).join("") || '<p class="mu" style="margin-top:8px">Free all day.</p>'}<button class="btn s" style="margin-top:10px" onclick="assignM(0,${v.id})">Assign a family</button></div>`;
+        }).join("")}</div>`;
+      }
+      function vWa() {
+        const fs = [...S.sel].map(fam),
+          f0 = fs[0];
+        return `<h1>WhatsApp</h1><p class="sub">Pick a number, pick families, send.</p><div class="two"><div>
+<label>Send from</label><div class="send">${Object.keys(SENDERS)
+          .map(
+            (k) =>
+              `<button class="chip ${S.sender == k ? "on" : ""}" onclick="S.sender='${k}';render()"><b>${k}</b><br>${SENDERS[k]}</button>`,
+          )
+          .join("")}</div>
+<label>Families (${S.sel.size} selected)</label><input placeholder="Search families" oninput="waSearch(this.value)"><div class="rl" id="rl">${recList("")}</div>
+<label>Template</label><select onchange="S.tpl=this.value;S.msg=TPL[this.value][1];render()">${opts(
+          Object.entries(TPL).map(([k, v]) => [k, v[0]]),
+          S.tpl,
+        )}</select>
+<label>Message</label><textarea rows="7" oninput="S.msg=this.value;$('#pv').innerHTML=pv()">${S.msg}</textarea><div class="mu">Variables: {{family}} {{primaryContact}} {{city}} {{arrivalDate}} {{arrivalTime}} {{hotel}} {{room}} {{vehicle}}</div>
+<label>Attachment</label><select onchange="S.media=this.value;render()">${opts(
+          [
+            ["", "None"],
+            ["Invitation card.jpg", "Image: Invitation card.jpg"],
+            ["Teaser.mp4", "Video: Teaser.mp4"],
+            ["Schedule.pdf", "PDF: Schedule.pdf"],
+          ],
+          S.media,
+        )}</select>
+<div class="row" style="margin-top:14px"><button class="btn" onclick="toast(S.sel.size?'Previewing '+fname(f0)+(S.sel.size>1?' (+'+(S.sel.size-1)+' more)':''):'Select a family first',!S.sel.size)">Preview</button><button class="btn p" onclick="sendWa()">Send message</button></div></div>
+<div><h2 style="margin-top:0">Preview</h2><div class="wa" id="pv">${pv()}</div><div id="st"></div></div></div>`;
+      }
+      function pv() {
+        const f = [...S.sel].map(fam)[0] || {
+          name: "Sample",
+          contact: "Sample Ji",
+          city: "City",
+          id: 0,
+        };
+        return `<div class="mu" style="margin-bottom:8px">To ${fname(f)}</div>${S.media ? `<div class="bub">📎 ${S.media}</div>` : ""}<div class="bub">${fill(S.msg, f).replace(/</g, "&lt;")}</div>`;
+      }
+      function recList(q) {
+        return F.filter((f) => fname(f).toLowerCase().includes(q.toLowerCase()))
+          .map(
+            (f) =>
+              `<label><input type="checkbox" ${S.sel.has(f.id) ? "checked" : ""} onchange="tg(${f.id})">${fname(f)} <span class="mu">${f.city}</span></label>`,
+          )
+          .join("");
+      }
+      function waSearch(v) {
+        $("#rl").innerHTML = recList(v);
+      }
+      function tg(id) {
+        S.sel.has(id) ? S.sel.delete(id) : S.sel.add(id);
+        $("#pv").innerHTML = pv();
+      }
+      function waTo(id) {
+        S.sel = new Set([id]);
+        go("wa");
+      }
+      function sendWa() {
+        if (!S.sel.size) return toast("Select at least one family", 1);
+        const ids = [...S.sel],
+          rec = ids.map((i) => [i, "Pending"]);
+        const st = $("#st");
+        const draw = () =>
+          (st.innerHTML = `<h2>Sending</h2><div class="card">${rec.map((r) => `<div class="row sp"><span>${fname(fam(r[0]))}</span><span class="pill ${r[1] == "Failed" ? "fail" : r[1] == "Sent" ? "" : "pend"}">${r[1]}</span></div>`).join("")}</div>`);
+        draw();
+        let i = 0;
+        (function nx() {
+          if (i >= rec.length) {
+            C.unshift({
+              id: C.length + 1,
+              when: "Today, now",
+              sender: S.sender,
+              tpl: TPL[S.tpl][0],
+              rec: rec.map((r) => [...r]),
+            });
+            return toast(`Sent to ${rec.length} families from ${S.sender}`);
+          }
+          rec[i][1] = "Sending";
+          draw();
+          setTimeout(() => {
+            rec[i][1] = ids[i] == 3 && Math.random() < 0.5 ? "Failed" : "Sent";
+            draw();
+            i++;
+            nx();
+          }, 550);
+        })();
+      }
+      function vHis() {
+        return `<h1>Message history</h1><p class="sub">Tap a campaign to see who got it.</p><div class="cards">${C.map(
+          (c) => {
+            const ok = c.rec.filter((r) => r[1] == "Sent").length;
+            return `<div class="card" style="cursor:pointer" onclick="campM(${c.id})"><div class="row sp"><h3>${c.tpl}</h3><span class="mu">${c.when}</span></div><div class="mu">From ${c.sender} · ${c.rec.length} recipients</div><div style="margin-top:6px"><span class="pill">${ok} sent</span> ${c.rec.length - ok ? `<span class="pill fail">${c.rec.length - ok} failed</span>` : ""}</div></div>`;
+          },
+        ).join("")}</div>`;
+      }
+      // ---------- MODALS ----------
+      function campM(id) {
+        const c = C.find((x) => x.id == id);
+        modal(
+          `<h2 style="margin-top:0">${c.tpl}</h2><p class="sub">${c.when} · from ${c.sender}</p>${c.rec.map((r) => `<div class="card row sp" style="margin-bottom:8px"><span>${fname(fam(r[0]))}</span>${pill(r[1] == "Sent" ? "Confirmed" : "Declined").replace(/Confirmed|Declined/, r[1])}</div>`).join("")}<button class="btn" onclick="closeM()">Close</button>`,
+        );
+      }
+      function detail(id) {
+        const f = fam(id),
+          t = f.travel,
+          L = (x, k) =>
+            x
+              ? `<dl class="kv"><dt>Date</dt><dd>${x.d}, ${x.t}</dd><dt>Mode</dt><dd>${x.m} ${x.n}</dd><dt>Place</dt><dd>${x.l}</dd><dt>${k == "a" ? "From" : "To"}</dt><dd>${x.f}</dd><dt>${k == "a" ? "Pickup" : "Drop"}</dt><dd>${x.p ? "Required" : "Not required"}</dd></dl>`
+              : '<p class="mu">Not added yet.</p>';
+        modal(`<div class="row sp"><h2 style="margin:0">${fname(f)}</h2>${pill(f.status)}</div><p class="sub">${f.contact} · ${f.phone}</p>
+<div class="acts"><button class="btn" onclick="waTo(${id})">Chat</button><a class="btn" href="tel:${f.phone.replace(/\s/g, "")}">Call</a><button class="btn" onclick="allocM(${id})">Room</button><button class="btn" onclick="assignM(${id})">Pickup</button><button class="btn" onclick="famM(${id})">Edit</button></div>
+<h2>Family</h2><dl class="kv"><dt>City</dt><dd>${f.city} (${f.outstation ? "Outstation" : "Local"})</dd><dt>Relation</dt><dd>${f.relation}</dd><dt>Category</dt><dd>${f.category}</dd><dt>Priority</dt><dd>${f.priority}</dd><dt>Notes</dt><dd>${f.notes || "-"}</dd></dl>
+<h2>Attendance</h2><p><b>${f.confirmed}</b> confirmed</p>
+<h2>Arrival</h2>${L(t && t.a, "a")}<h2>Departure</h2>${L(t && t.d, "d")}
+<h2>Rooms (${roomsOf(id).length})</h2>${
+          roomsOf(id)
+            .map((a) => {
+              const r = R.find((r) => r.no == a.room);
+              return `<div class="row sp" style="margin-bottom:6px"><span><b>${r.type} - ${r.no}</b> <span class="mu">${a.people} people</span></span><button class="btn s" onclick="rmAllocD(${a.id},${id})">Remove</button></div>`;
+            })
+            .join("") || '<p class="mu">No room yet.</p>'
+        }
+<h2>Cars</h2>${
+          vOf(id)
+            .map(
+              (x) =>
+                `<div>${veh(x.veh).name} · ${x.type} · ${x.date}, ${x.time} · ${x.loc}</div>`,
+            )
+            .join("") || '<p class="mu">No car assigned.</p>'
+        }
+<h2>Messages</h2>${
+          C.filter((c) => c.rec.some((r) => r[0] == id))
+            .map(
+              (c) =>
+                `<div>${c.tpl} · ${c.when} · ${c.rec.find((r) => r[0] == id)[1]}</div>`,
+            )
+            .join("") || '<p class="mu">No messages sent.</p>'
+        }<div style="height:14px"></div><button class="btn" onclick="closeM()">Close</button>`);
+      }
+      function famM(id) {
+        const f = id
+          ? fam(id)
+          : {
+              name: "",
+              contact: "",
+              phone: "+91 ",
+              city: "",
+              relation: "",
+              category: "Relatives",
+              priority: "Medium",
+              invited: 1,
+              confirmed: 0,
+              status: "Pending",
+              outstation: false,
+              notes: "",
+            };
+        const i = (k, l, t = "text") =>
+          `<label>${l}</label><input id="f_${k}" type="${t}" value="${f[k]}">`;
+        modal(`<h2 style="margin-top:0">${id ? "Edit" : "Add"} family</h2>${i("name", "Family name (e.g. Sharma)")}${i("contact", "Primary contact")}${i("phone", "WhatsApp / phone")}${i("city", "City")}${i("relation", "Relation to groom")}${i("category", "Category")}
+<label>Priority</label><select id="f_priority">${opts(["High", "Medium", "Low"], f.priority)}</select>${i("confirmed", "Confirmed people", "number")}${i("invited", "Invited people (optional)", "number")}
+<label>Status</label><select id="f_status">${opts(["Pending", "Confirmed", "Declined"], f.status)}</select><label>Local / Outstation</label><select id="f_out">${opts(
+          [
+            [0, "Local"],
+            [1, "Outstation"],
+          ],
+          +f.outstation,
+        )}</select>${i("notes", "Notes")}
+<div class="row" style="margin-top:16px"><button class="btn p" onclick="saveFam(${id || 0})">Save family</button><button class="btn" onclick="closeM()">Cancel</button></div>`);
+      }
+      function saveFam(id) {
+        const g = (k) => $("#f_" + k).value.trim(),
+          d = {
+            name: g("name").replace(/ family$/i, ""),
+            contact: g("contact"),
+            phone: g("phone"),
+            city: g("city"),
+            relation: g("relation"),
+            category: g("category"),
+            priority: g("priority"),
+            invited: +g("invited"),
+            confirmed: +g("confirmed"),
+            status: g("status"),
+            outstation: g("out") == "1",
+            notes: g("notes"),
+          };
+        if (!d.name || !d.contact)
+          return toast("Add a family name and primary contact", 1);
+        id
+          ? Object.assign(fam(id), d)
+          : F.push({
+              id: Math.max(...F.map((f) => f.id)) + 1,
+              travel: null,
+              ...d,
+            });
+        closeM();
+        render();
+        toast(id ? "Family saved" : "Family added");
+      }
+      let D = { f: 0, rows: [] }; // draft rooms for the family being edited
+      function roomsM(fid) {
+        D = {
+          f: fid,
+          rows: roomsOf(fid).map((a) => ({ room: a.room, people: a.people })),
+        };
+        drawRooms();
+      }
+      const freeFor = (r) =>
+        r.cap -
+        A.filter((a) => a.room == r.no && a.fam != D.f).reduce(
+          (s, a) => s + a.people,
+          0,
+        );
+      function drawRooms() {
+        const f = fam(D.f);
+        modal(`<h2 style="margin-top:0">Rooms for ${fname(f)}</h2><p class="sub">${D.rows.length} room${D.rows.length == 1 ? "" : "s"} · ${D.rows.reduce((s, r) => s + r.people, 0)} people. Change a room, edit people, or add another.</p>
+${
+  D.rows
+    .map(
+      (r, i) =>
+        `<div class="card" style="margin-bottom:8px"><label style="margin-top:0">Room</label><select onchange="D.rows[${i}].room=+this.value;drawRooms()">${R.filter(
+          (x) =>
+            x.no == r.room ||
+            (freeFor(x) > 0 &&
+              !D.rows.some((y, j) => j != i && y.room == x.no)),
+        )
+          .map(
+            (x) =>
+              `<option value="${x.no}" ${x.no == r.room ? "selected" : ""}>${x.type} - ${x.no} · ${freeFor(x)} beds free</option>`,
+          )
+          .join(
+            "",
+          )}</select><label>People staying</label><input type="number" min="1" value="${r.people}" onchange="D.rows[${i}].people=+this.value"><button class="btn s" style="margin-top:10px" onclick="D.rows.splice(${i},1);drawRooms()">Remove this room</button></div>`,
+    )
+    .join("") || '<p class="mu">No room yet. Add one below.</p>'
+}
+<button class="btn" onclick="addRow()">Add another room</button>
+<div class="row" style="margin-top:16px"><button class="btn p" onclick="saveRooms()">Save rooms</button><button class="btn" onclick="closeM()">Cancel</button></div>`);
+      }
+      function addRow() {
+        const r = R.find(
+          (x) => freeFor(x) > 0 && !D.rows.some((y) => y.room == x.no),
+        );
+        if (!r) return toast("No free rooms left", 1);
+        D.rows.push({ room: r.no, people: 1 });
+        drawRooms();
+      }
+      function saveRooms() {
+        for (const r of D.rows) {
+          const room = R.find((x) => x.no == r.room);
+          if (!(r.people >= 1)) return toast("People must be at least 1", 1);
+          if (r.people > freeFor(room))
+            return toast(
+              `${room.type} - ${room.no} has only ${freeFor(room)} beds free`,
+              1,
+            );
+        }
+        A = A.filter((a) => a.fam != D.f).concat(
+          D.rows.map((r, i) => ({
+            id: Date.now() + i,
+            fam: D.f,
+            room: r.room,
+            people: r.people,
+          })),
+        );
+        closeM();
+        render();
+        toast("Rooms updated");
+      }
+      function allocM(fid, rno) {
+        if (fid && !rno) return roomsM(fid);
+        modal(`<h2 style="margin-top:0">Allocate room</h2><label>Family</label><select id="a_f">${opts(
+          F.map((f) => [f.id, fname(f)]),
+          fid,
+        )}</select><label>Room</label><select id="a_r">${opts(
+          R.map((r) => [r.no, `${r.no} · ${r.type} · sleeps ${r.cap}`]),
+          rno,
+        )}</select><label>People staying</label><input id="a_p" type="number" min="1" value="2">
+<div class="row" style="margin-top:16px"><button class="btn p" onclick="saveAlloc()">Allocate room</button><button class="btn" onclick="closeM()">Cancel</button></div>`);
+      }
+      function saveAlloc() {
+        const r = +$("#a_r").value,
+          p = +$("#a_p").value,
+          room = R.find((x) => x.no == r),
+          used = A.filter((a) => a.room == r).reduce((s, a) => s + a.people, 0);
+        if (used + p > room.cap)
+          return toast(`Room ${r} sleeps ${room.cap}, ${used} already in`, 1);
+        A.push({ id: Date.now(), fam: +$("#a_f").value, room: r, people: p });
+        closeM();
+        render();
+        toast("Room allocated");
+      }
+      function rmAllocD(id, fid) {
+        A = A.filter((a) => a.id != id);
+        render();
+        detail(fid);
+        toast("Room removed");
+      }
+      function rmAlloc(id) {
+        A = A.filter((a) => a.id != id);
+        render();
+        toast("Allocation removed");
+      }
+      function assignM(fid, vid) {
+        const f = fid && fam(fid),
+          t = f && f.travel && f.travel.a;
+        modal(`<h2 style="margin-top:0">Assign a car</h2><label>Family</label><select id="x_f">${opts(
+          F.map((f) => [f.id, fname(f)]),
+          fid,
+        )}</select><label>Car</label><select id="x_v">${opts(
+          V.map((v) => [v.id, `${v.name} · ${v.driver}`]),
+          vid,
+        )}</select><label>Pickup or drop</label><select id="x_t">${opts(["Pickup", "Drop"])}</select>
+<label>Date</label><input id="x_d" value="${t ? t.d : TODAY}"><label>Time</label><input id="x_h" value="${t ? t.t : "3:30 PM"}"><label>Place</label><input id="x_l" value="${t ? t.l : ""}" placeholder="Airport, station or hotel">
+<div class="row" style="margin-top:16px"><button class="btn p" onclick="saveAssign()">Assign car</button><button class="btn" onclick="closeM()">Cancel</button></div>`);
+      }
+      function saveAssign() {
+        const x = {
+          id: Date.now(),
+          fam: +$("#x_f").value,
+          veh: +$("#x_v").value,
+          type: $("#x_t").value,
+          date: $("#x_d").value,
+          time: $("#x_h").value,
+          loc: $("#x_l").value,
+        };
+        const c = X.find(
+          (y) => y.veh == x.veh && y.date == x.date && y.time == x.time,
+        );
+        if (c)
+          return toast(
+            `${veh(x.veh).name} is already booked then for ${fname(fam(c.fam))}`,
+            1,
+          );
+        X.push(x);
+        closeM();
+        render();
+        toast("Car assigned");
+      }
+      function rmAssign(id) {
+        X = X.filter((x) => x.id != id);
+        render();
+        toast("Assignment removed");
+      }
+      function roomM() {
+        modal(
+          `<h2 style="margin-top:0">Add room</h2><label>Room number</label><input id="r_n" type="number"><label>Type</label><select id="r_t">${opts(["Standard", "Deluxe", "Suite"])}</select><label>Capacity</label><input id="r_c" type="number" value="2"><div class="row" style="margin-top:16px"><button class="btn p" onclick="saveRoom()">Save room</button><button class="btn" onclick="closeM()">Cancel</button></div>`,
+        );
+      }
+      function saveRoom() {
+        const n = +$("#r_n").value;
+        if (!n || R.some((r) => r.no == n))
+          return toast("Enter a new room number", 1);
+        R.push({
+          no: n,
+          type: $("#r_t").value,
+          cap: +$("#r_c").value || 2,
+          notes: "",
+        });
+        closeM();
+        render();
+        toast("Room added");
+      }
+      function vehM() {
+        modal(
+          `<h2 style="margin-top:0">Add vehicle</h2><label>Name</label><input id="v_n" placeholder="Innova 3"><label>Vehicle number</label><input id="v_no"><label>Driver name</label><input id="v_d"><label>Driver phone</label><input id="v_p" value="+91 "><label>Seats</label><input id="v_c" type="number" value="4"><div class="row" style="margin-top:16px"><button class="btn p" onclick="saveVeh()">Save vehicle</button><button class="btn" onclick="closeM()">Cancel</button></div>`,
+        );
+      }
+      function saveVeh() {
+        if (!$("#v_n").value) return toast("Give the vehicle a name", 1);
+        V.push({
+          id: V.length + 1,
+          name: $("#v_n").value,
+          no: $("#v_no").value,
+          driver: $("#v_d").value,
+          dphone: $("#v_p").value,
+          cap: +$("#v_c").value || 4,
+          notes: "",
+        });
+        closeM();
+        render();
+        toast("Vehicle added");
+      }
+      render();
+    </script>
+  </body>
+</html>
