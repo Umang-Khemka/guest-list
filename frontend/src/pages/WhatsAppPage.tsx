@@ -19,7 +19,7 @@ const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve,
 const simulateSend = () => Math.random() > 0.1;
 
 export default function WhatsAppPage() {
-  const { families, travels, rooms, allocations, vehicles, assignments } = useAppData();
+  const { families, travels, rooms, allocations, vehicles, assignments, setCampaigns } = useAppData();
   const [params] = useSearchParams();
   const { toast, showToast } = useToast();
 
@@ -91,6 +91,16 @@ export default function WhatsAppPage() {
       results.push({ family: recipients[i]._id, status: ok ? "sent" : "failed" });
     }
 
+    setCampaigns((prev) => [
+      {
+        _id: `c${Date.now()}`,
+        sentAt: new Date().toISOString(),
+        sender,
+        template: TEMPLATES[templateId].label,
+        recipients: results,
+      },
+      ...prev,
+    ]);
     setSending(false);
 
     const failed = results.filter((r) => r.status === "failed").length;

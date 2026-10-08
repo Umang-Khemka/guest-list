@@ -3,6 +3,7 @@ import type { Family } from "../types/family";
 import type { Room, RoomAllocation } from "../types/room";
 import type { Travel } from "../types/travel";
 import type { Vehicle, VehicleAssignment } from "../types/vehicle";
+import type { Campaign } from "../types/message";
 
 type Setter<T> = Dispatch<SetStateAction<T[]>>;
 
@@ -20,6 +21,7 @@ export interface AppData {
   setVehicles: Setter<Vehicle>;
   assignments: VehicleAssignment[];
   setAssignments: Setter<VehicleAssignment>;
+  setCampaigns: Setter<Campaign>;
 }
 
 export const AppDataContext = createContext<AppData | null>(null);
