@@ -1,0 +1,64 @@
+.occupancy {
+  height: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: var(--line);
+  border-radius: 9px;
+}
+
+.occupancy i {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+}
+
+.room-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.room-card {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.room-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.room-card__top h3 {
+  font-size: 16px;
+}
+
+.room-card__alloc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.room-card .btn {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.room-card .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.room-card__add {
+  margin-top: 10px;
+}
+
+@media (min-width: 900px) {
+  .room-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
