@@ -7,7 +7,6 @@ const ITEMS = [
   { to: "/rooms", label: "Rooms", short: "Rooms" },
   { to: "/vehicles", label: "Vehicles", short: "Cars" },
   { to: "/whatsapp", label: "WhatsApp", short: "WhatsApp" },
-  { to: "/history", label: "Messages / History", short: "History" },
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

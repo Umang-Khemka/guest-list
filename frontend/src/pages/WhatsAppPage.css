@@ -1,0 +1,146 @@
+.wa-layout {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+
+.wa-composer {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.wa-heading {
+  margin: 0 0 10px;
+  font-size: 19px;
+}
+
+.wa-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* ---------- Sender ---------- */
+.sender-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sender-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.sender-chip span {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.sender-chip--on {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ---------- Recipients ---------- */
+.recipient-tools {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.recipient-tools .btn {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.recipient-tools .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.recipient-list {
+  max-height: 190px;
+  margin-top: 8px;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.recipient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.recipient input {
+  width: auto;
+}
+
+.recipient__empty {
+  padding: 10px;
+}
+
+/* ---------- Preview ---------- */
+.wa-preview {
+  padding: 16px;
+  background: #e5ddd5;
+  border-radius: var(--radius);
+}
+
+.wa-preview__to {
+  margin-bottom: 8px;
+}
+
+.wa-bubble {
+  max-width: 92%;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #dcf8c6;
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.13);
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+/* ---------- Send progress ---------- */
+.send-progress {
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.send-progress__title {
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+
+.send-progress__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+@media (min-width: 900px) {
+  .wa-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}

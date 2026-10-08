@@ -5,6 +5,7 @@ import FamiliesPage from "./pages/FamilyPage";
 import RoomsPage from "./pages/RoomPage";
 import TravelPage from "./pages/TravelPage";
 import VehiclesPage from "./pages/VehiclesPage";
+import WhatsAppPage from "./pages/WhatsAppPage";
 
 export default function App() {
   return (
@@ -15,8 +16,7 @@ export default function App() {
         <Route path="travel" element={<TravelPage />} />
         <Route path="rooms" element={<RoomsPage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
-        <Route path="whatsapp" element={<ComingSoon title="WhatsApp" />} />
-        <Route path="history" element={<ComingSoon title="Messages / History" />} />
+        <Route path="whatsapp" element={<WhatsAppPage />} />
       </Route>
     </Routes>
   );
