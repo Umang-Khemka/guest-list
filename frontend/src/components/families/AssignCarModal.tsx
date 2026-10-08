@@ -11,18 +11,20 @@ export type AssignmentData = Omit<VehicleAssignment, "_id">;
 interface Props {
   family: Family;
   vehicles: Vehicle[];
+  // Optional starting values, e.g. from a travel leg
+  initial?: { type?: AssignmentType; date?: string; time?: string; location?: string };
   // Returns the name of the family already using that car at that time, or null
   findConflict: (vehicleId: string, date: string, time: string) => string | null;
   onSave: (data: AssignmentData) => void;
   onClose: () => void;
 }
 
-export default function AssignCarModal({ family, vehicles, findConflict, onSave, onClose }: Props) {
+export default function AssignCarModal({ family, vehicles, initial, findConflict, onSave, onClose }: Props) {
   const [vehicle, setVehicle] = useState(vehicles[0]?._id ?? "");
-  const [type, setType] = useState<AssignmentType>("pickup");
-  const [date, setDate] = useState(DEFAULT_TRAVEL_DATE);
-  const [time, setTime] = useState(DEFAULT_TRAVEL_TIME);
-  const [location, setLocation] = useState("");
+  const [type, setType] = useState<AssignmentType>(initial?.type ?? "pickup");
+  const [date, setDate] = useState(initial?.date ?? DEFAULT_TRAVEL_DATE);
+  const [time, setTime] = useState(initial?.time ?? DEFAULT_TRAVEL_TIME);
+  const [location, setLocation] = useState(initial?.location ?? "");
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: FormEvent) => {

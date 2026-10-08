@@ -1,0 +1,92 @@
+.travel-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.travel-card {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.travel-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.travel-card__name {
+  font-size: 16px;
+}
+
+.travel-card .btn {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.travel-legs {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.travel-leg__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.travel-leg__car {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Families we still need travel details for */
+.missing {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: var(--gold-soft);
+  border-radius: var(--radius);
+}
+
+.missing__title {
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: var(--gold-ink);
+}
+
+.missing__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.missing .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+@media (min-width: 900px) {
+  .travel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .travel-legs {
+    grid-template-columns: 1fr 1fr;
+  }
+}

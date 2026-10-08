@@ -1,6 +1,7 @@
 import { createContext, type Dispatch, type SetStateAction } from "react";
 import type { Family } from "../types/family";
 import type { Room, RoomAllocation } from "../types/room";
+import type { Travel } from "../types/travel";
 import type { Vehicle, VehicleAssignment } from "../types/vehicle";
 
 type Setter<T> = Dispatch<SetStateAction<T[]>>;
@@ -9,6 +10,8 @@ type Setter<T> = Dispatch<SetStateAction<T[]>>;
 export interface AppData {
   families: Family[];
   setFamilies: Setter<Family>;
+  travels: Travel[];
+  setTravels: Setter<Travel>;
   rooms: Room[];
   setRooms: Setter<Room>;
   allocations: RoomAllocation[];

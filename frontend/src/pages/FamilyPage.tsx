@@ -1,12 +1,14 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AssignCarModal, { type AssignmentData } from "../components/families/AssignCarModal";
+import AssignCarModal from "../components/families/AssignCarModal";
 import FamilyCard, { type FamilyAction } from "../components/families/FamilyCard";
 import FamilyFilters from "../components/families/FamilyFilters";
 import FamilyFormModal, { type FamilyFormData } from "../components/families/FamilyFormModal";
 import FamilyRoomsModal, { type RoomChoice } from "../components/families/FamilyRoomModal";
 import Toast from "../components/ui/Toast";
 import { useAppData } from "../hooks/useAppData";
+import { useCarAssignment } from "../hooks/useCarAssignment";
+import { useToast } from "../hooks/useToast";
 import { EMPTY_FILTERS, type Family, type FamilyFilters as Filters } from "../types/family";
 import { filterFamilies, uniqueValues } from "../utils/filterFamilies";
 import "./FamilyPage.css";
@@ -21,22 +23,16 @@ type ModalState =
 
 export default function FamiliesPage() {
   const navigate = useNavigate();
-  const { families, setFamilies, rooms, allocations, setAllocations, vehicles, assignments, setAssignments } = useAppData();
+  const { families, setFamilies, rooms, allocations, setAllocations, vehicles } = useAppData();
+  const { findConflict, addAssignment } = useCarAssignment();
+  const { toast, showToast } = useToast();
 
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [modal, setModal] = useState<ModalState>(null);
-  const [toast, setToast] = useState<string | null>(null);
-  const toastTimer = useRef<number | undefined>(undefined);
 
   const visible = useMemo(() => filterFamilies(families, filters), [families, filters]);
   const categories = useMemo(() => uniqueValues(families, "category"), [families]);
   const cities = useMemo(() => uniqueValues(families, "city"), [families]);
-
-  const showToast = (message: string) => {
-    setToast(message);
-    window.clearTimeout(toastTimer.current);
-    toastTimer.current = window.setTimeout(() => setToast(null), 2600);
-  };
 
   const handleAction = (action: FamilyAction, family: Family) => {
     switch (action) {
@@ -75,18 +71,6 @@ export default function FamiliesPage() {
     ]);
     setModal(null);
     showToast(`Rooms updated for the ${family.name} Family`);
-  };
-
-  const handleSaveCar = (data: AssignmentData) => {
-    setAssignments((prev) => [...prev, { ...data, _id: String(Date.now()) }]);
-    setModal(null);
-    showToast("Car assigned");
-  };
-
-  // Is this car already booked at that exact date and time? Returns that family's name.
-  const findConflict = (vehicleId: string, date: string, time: string) => {
-    const clash = assignments.find((a) => a.vehicle === vehicleId && a.date === date && a.time === time);
-    return clash ? (families.find((f) => f._id === clash.family)?.name ?? "another") : null;
   };
 
   return (
@@ -135,7 +119,11 @@ export default function FamiliesPage() {
           family={modal.family}
           vehicles={vehicles}
           findConflict={findConflict}
-          onSave={handleSaveCar}
+          onSave={(data) => {
+            addAssignment(data);
+            setModal(null);
+            showToast("Car assigned");
+          }}
           onClose={() => setModal(null)}
         />
       )}
