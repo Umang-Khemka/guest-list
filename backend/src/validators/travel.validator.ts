@@ -18,7 +18,7 @@ const travelDetailsSchema = z
   })
   .strict();
 
-export const createTravelSchema = z
+const travelSchema = z
   .object({
     familyId: z.string().min(1, "Family ID is required"),
 
@@ -28,17 +28,18 @@ export const createTravelSchema = z
 
     notes: z.string().trim().optional(),
   })
-  .strict()
-  .refine(
-    (data) => data.arrival || data.departure,
-    {
-      message: "Arrival or departure details are required",
-    }
-  );
+  .strict();
+
+export const createTravelSchema = travelSchema.refine(
+  (data) => data.arrival || data.departure,
+  {
+    message: "Arrival or departure details are required",
+  }
+);
 
 export type CreateTravelInput = z.infer<typeof createTravelSchema>;
 
-export const updateTravelSchema = createTravelSchema
+export const updateTravelSchema = travelSchema
   .omit({
     familyId: true,
   })
