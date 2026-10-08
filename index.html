@@ -406,7 +406,7 @@
           grid-template-columns: repeat(2, 1fr);
         }
         .tools {
-          grid-template-columns: 2fr repeat(5, 1fr);
+          grid-template-columns: 2fr repeat(6, 1fr);
         }
         .tools input {
           grid-column: auto;
@@ -741,6 +741,27 @@
         notes: a[12],
         travel: a[13],
       }));
+      const GROUPS = [
+        "Mom's side",
+        "Dad's side",
+        "Grandmother's side",
+        "Brother's friends",
+        "Business friends",
+        "Others",
+      ];
+      const G0 = {
+        1: GROUPS[0],
+        4: GROUPS[1],
+        6: GROUPS[2],
+        7: GROUPS[0],
+        9: GROUPS[3],
+        10: GROUPS[2],
+        11: GROUPS[1],
+        3: GROUPS[4],
+        5: GROUPS[4],
+        12: GROUPS[4],
+      };
+      F.forEach((f) => (f.group = G0[f.id] || "Others"));
       let R = [
         [101, "Standard", 2],
         [102, "Standard", 2],
@@ -857,7 +878,14 @@
       const S = {
         view: "dash",
         q: "",
-        fl: { status: "", loc: "", priority: "", category: "", city: "" },
+        fl: {
+          group: "",
+          status: "",
+          loc: "",
+          priority: "",
+          category: "",
+          city: "",
+        },
         sender: "Mom",
         sel: new Set(),
         tpl: "inv",
@@ -946,7 +974,7 @@
       }
       function famCard(f) {
         return `<div class="card fam ${f.status}"><div class="row sp" onclick="detail(${f.id})" style="cursor:pointer"><div><h3>${fname(f)}</h3><div class="mu">${f.contact} · ${f.city} · ${f.outstation ? "Outstation" : "Local"}</div></div>${pill(f.status)}</div>
-<div class="mu" style="margin-top:8px">${f.relation} · ${f.category} · ${f.priority} priority</div>
+<div class="mu" style="margin-top:8px">${f.group} · ${f.relation} · ${f.category} · ${f.priority} priority</div>
 <div style="margin-top:6px"><b>${f.confirmed}</b> confirmed ${f.notes ? `<div class="mu">${f.notes}</div>` : ""}</div>
 <div class="acts"><button class="btn" onclick="waTo(${f.id})">Chat</button><a class="btn" href="tel:${f.phone.replace(/\s/g, "")}">Call</a><button class="btn" onclick="allocM(${f.id})">Room</button><button class="btn" onclick="assignM(${f.id})">Pickup</button><button class="btn" onclick="famM(${f.id})">Edit</button></div></div>`;
       }
@@ -992,6 +1020,7 @@
         const list = F.filter(
           (f) =>
             (!q || (f.name + f.contact + f.city).toLowerCase().includes(q)) &&
+            (!fl.group || f.group == fl.group) &&
             (!fl.status || f.status == fl.status) &&
             (!fl.loc || (f.outstation ? "Outstation" : "Local") == fl.loc) &&
             (!fl.priority || f.priority == fl.priority) &&
@@ -1001,7 +1030,7 @@
         const sel = (k, l, a) =>
           `<select aria-label="${l}" onchange="S.fl.${k}=this.value;keep()"><option value="">${l}</option>${opts(a, fl[k])}</select>`;
         return `<div class="row sp"><h1>Families</h1><button class="btn p" onclick="famM()">Add family</button></div><p class="sub">${list.length} of ${F.length} families</p>
-<div class="tools"><input id="q" placeholder="Search name, contact or city" value="${S.q}" oninput="S.q=this.value;keep()">${sel("status", "Status", ["Pending", "Confirmed", "Declined"])}${sel("loc", "Local / Out", ["Local", "Outstation"])}${sel("priority", "Priority", ["High", "Medium", "Low"])}${sel("category", "Category", uniq("category"))}${sel("city", "City", uniq("city"))}</div>
+<div class="tools"><input id="q" placeholder="Search name, contact or city" value="${S.q}" oninput="S.q=this.value;keep()">${sel("group", "Group", GROUPS)}${sel("status", "Status", ["Pending", "Confirmed", "Declined"])}${sel("loc", "Local / Out", ["Local", "Outstation"])}${sel("priority", "Priority", ["High", "Medium", "Low"])}${sel("category", "Category", uniq("category"))}${sel("city", "City", uniq("city"))}</div>
 <div class="cards">${list.map(famCard).join("") || '<p class="mu">No family matches. Clear a filter or add a new family.</p>'}</div>`;
       }
       function keep() {
@@ -1150,7 +1179,7 @@
               : '<p class="mu">Not added yet.</p>';
         modal(`<div class="row sp"><h2 style="margin:0">${fname(f)}</h2>${pill(f.status)}</div><p class="sub">${f.contact} · ${f.phone}</p>
 <div class="acts"><button class="btn" onclick="waTo(${id})">Chat</button><a class="btn" href="tel:${f.phone.replace(/\s/g, "")}">Call</a><button class="btn" onclick="allocM(${id})">Room</button><button class="btn" onclick="assignM(${id})">Pickup</button><button class="btn" onclick="famM(${id})">Edit</button></div>
-<h2>Family</h2><dl class="kv"><dt>City</dt><dd>${f.city} (${f.outstation ? "Outstation" : "Local"})</dd><dt>Relation</dt><dd>${f.relation}</dd><dt>Category</dt><dd>${f.category}</dd><dt>Priority</dt><dd>${f.priority}</dd><dt>Notes</dt><dd>${f.notes || "-"}</dd></dl>
+<h2>Family</h2><dl class="kv"><dt>City</dt><dd>${f.city} (${f.outstation ? "Outstation" : "Local"})</dd><dt>Group</dt><dd>${f.group}</dd><dt>Relation</dt><dd>${f.relation}</dd><dt>Category</dt><dd>${f.category}</dd><dt>Priority</dt><dd>${f.priority}</dd><dt>Notes</dt><dd>${f.notes || "-"}</dd></dl>
 <h2>Attendance</h2><p><b>${f.confirmed}</b> confirmed</p>
 <h2>Arrival</h2>${L(t && t.a, "a")}<h2>Departure</h2>${L(t && t.d, "d")}
 <h2>Rooms (${roomsOf(id).length})</h2>${
@@ -1188,6 +1217,7 @@
               city: "",
               relation: "",
               category: "Relatives",
+              group: "Others",
               priority: "Medium",
               invited: 1,
               confirmed: 0,
@@ -1197,7 +1227,7 @@
             };
         const i = (k, l, t = "text") =>
           `<label>${l}</label><input id="f_${k}" type="${t}" value="${f[k]}">`;
-        modal(`<h2 style="margin-top:0">${id ? "Edit" : "Add"} family</h2>${i("name", "Family name (e.g. Sharma)")}${i("contact", "Primary contact")}${i("phone", "WhatsApp / phone")}${i("city", "City")}${i("relation", "Relation to groom")}${i("category", "Category")}
+        modal(`<h2 style="margin-top:0">${id ? "Edit" : "Add"} family</h2>${i("name", "Family name (e.g. Sharma)")}${i("contact", "Primary contact")}${i("phone", "WhatsApp / phone")}${i("city", "City")}<label>Group</label><select id="f_group">${opts(GROUPS, f.group)}</select>${i("relation", "Relation to groom")}${i("category", "Category")}
 <label>Priority</label><select id="f_priority">${opts(["High", "Medium", "Low"], f.priority)}</select>${i("confirmed", "Confirmed people", "number")}${i("invited", "Invited people (optional)", "number")}
 <label>Status</label><select id="f_status">${opts(["Pending", "Confirmed", "Declined"], f.status)}</select><label>Local / Outstation</label><select id="f_out">${opts(
           [
@@ -1217,6 +1247,7 @@
             city: g("city"),
             relation: g("relation"),
             category: g("category"),
+            group: g("group"),
             priority: g("priority"),
             invited: +g("invited"),
             confirmed: +g("confirmed"),

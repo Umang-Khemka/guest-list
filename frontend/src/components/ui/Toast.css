@@ -1,0 +1,19 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 84px; /* sits above the mobile bottom nav */
+  transform: translateX(-50%);
+  z-index: 99;
+  max-width: 90%;
+  padding: 11px 18px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: #fff;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .toast {
+    bottom: 30px;
+  }
+}
