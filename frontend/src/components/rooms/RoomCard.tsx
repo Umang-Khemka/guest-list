@@ -21,7 +21,7 @@ export default function RoomCard({ room, allocations, freeBeds, familyName, onAl
       </div>
 
       <div className="muted">
-        {ROOM_TYPE_LABELS[room.type]} · sleeps {room.capacity} · {freeBeds} free
+        {ROOM_TYPE_LABELS[room.roomType]} · sleeps {room.capacity} · {freeBeds} free
       </div>
       {room.notes && <div className="muted">{room.notes}</div>}
 

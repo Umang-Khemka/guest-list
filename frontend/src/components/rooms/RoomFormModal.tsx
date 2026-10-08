@@ -15,7 +15,7 @@ interface Props {
 
 export default function RoomFormModal({ existingNumbers, onSave, onClose }: Props) {
   const [roomNumber, setRoomNumber] = useState("");
-  const [type, setType] = useState<RoomType>("standard");
+  const [roomType, setRoomType] = useState<RoomType>("standard");
   const [capacity, setCapacity] = useState("2");
   const [notes, setNotes] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +29,7 @@ export default function RoomFormModal({ existingNumbers, onSave, onClose }: Prop
     if (existingNumbers.includes(number)) return setError(`Room ${number} already exists`);
     if (!Number.isInteger(beds) || beds < 1) return setError("Capacity must be at least 1");
 
-    onSave({ roomNumber: number, type, capacity: beds, notes: notes.trim() || undefined });
+    onSave({ roomNumber: number, roomType: roomType, capacity: beds, notes: notes.trim() || undefined });
   };
 
   return (
@@ -42,7 +42,7 @@ export default function RoomFormModal({ existingNumbers, onSave, onClose }: Prop
             <input value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} autoFocus />
           </Field>
           <Field label="Type">
-            <select value={type} onChange={(e) => setType(e.target.value as RoomType)}>
+            <select value={roomType} onChange={(e) => setRoomType(e.target.value as RoomType)}>
               {toOptions(ROOM_TYPE_LABELS).map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
