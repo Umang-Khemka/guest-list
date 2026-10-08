@@ -59,3 +59,42 @@ export const EMPTY_FILTERS: FamilyFilters = {
   category: "",
   city: "",
 };
+
+export type CreateFamilyInput = Omit<Family, "_id" | "createdAt" | "updatedAt">;
+
+export type UpdateFamilyInput = Partial<CreateFamilyInput>;
+
+export interface FamilyQuery {
+  search?: string;
+  status?: string;
+  guestType?: string;
+  priority?: string;
+  category?: string;
+  group?: string;
+  city?: string;
+}
+
+export interface FamilyResponse {
+  success: boolean;
+  data: Family;
+}
+
+export interface FamiliesResponse {
+  success: boolean;
+  count: number;
+  data: Family[];
+}
+
+export interface FamilyState {
+  families: Family[];
+  family: Family | null;
+  count: number;
+  loading: boolean;
+  error: string | null;
+
+  createFamily: (input: CreateFamilyInput) => Promise<Family>;
+  getFamilies: (query?: FamilyQuery) => Promise<void>;
+  getFamilyById: (id: string) => Promise<void>;
+  updateFamily: (id: string, input: UpdateFamilyInput) => Promise<Family>;
+  deleteFamily: (id: string) => Promise<void>;
+}

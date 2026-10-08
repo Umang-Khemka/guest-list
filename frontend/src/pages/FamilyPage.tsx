@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AssignCarModal from "../components/families/AssignCarModal";
 import FamilyCard, { type FamilyAction } from "../components/families/FamilyCard";
@@ -9,11 +9,14 @@ import Toast from "../components/ui/Toast";
 import { useAppData } from "../hooks/useAppData";
 import { useCarAssignment } from "../hooks/useCarAssignment";
 import { useToast } from "../hooks/useToast";
-import { EMPTY_FILTERS, type Family, type FamilyFilters as Filters } from "../types/family";
-import { filterFamilies, uniqueValues } from "../utils/filterFamilies";
+import { familyStore } from "../store/familyStore";
+import { roomStore } from "../store/roomStore";
+import { allocationStore } from "../store/allocationStore";
+import { EMPTY_FILTERS, type Family, type FamilyFilters as Filters, type FamilyQuery } from "../types/family";
+import type { RoomAllocation } from "../types/room";
+import { uniqueValues } from "../utils/filterFamilies";
 import "./FamilyPage.css";
 
-// Which popup is open (if any)
 type ModalState =
   | { mode: "add" }
   | { mode: "edit"; family: Family }
@@ -23,16 +26,64 @@ type ModalState =
 
 export default function FamiliesPage() {
   const navigate = useNavigate();
-  const { families, setFamilies, rooms, allocations, setAllocations, vehicles } = useAppData();
+  const { vehicles } = useAppData();
+  const { rooms, getRooms } = roomStore();
+  const {
+    allocations: rawAllocations,
+    getAllocations,
+    createAllocation,
+    updateAllocation,
+    deleteAllocation,
+  } = allocationStore();
+  const { families, loading, error, getFamilies, createFamily, updateFamily } = familyStore();
   const { findConflict, addAssignment } = useCarAssignment();
   const { toast, showToast } = useToast();
 
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [modal, setModal] = useState<ModalState>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
 
-  const visible = useMemo(() => filterFamilies(families, filters), [families, filters]);
-  const categories = useMemo(() => uniqueValues(families, "category"), [families]);
-  const cities = useMemo(() => uniqueValues(families, "city"), [families]);
+  // Load rooms and allocations from the API once
+  useEffect(() => {
+    getRooms().catch(() => {});
+    getAllocations().catch(() => {});
+  }, [getRooms, getAllocations]);
+
+  // Map API allocations (populated familyId/roomId) to the shape the room modal expects
+  const allocations = useMemo<RoomAllocation[]>(
+    () =>
+      rawAllocations
+        .filter((a) => a.familyId && a.roomId) // skip rows whose family/room was deleted
+        .map((a) => ({
+          _id: a._id,
+          family: a.familyId._id,
+          room: a.roomId._id,
+          people: a.occupantsCount,
+        })),
+    [rawAllocations]
+  );
+
+  // Only send filters that are actually set
+  const query = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(filters).filter(([, v]) => v && v !== "all")
+      ) as FamilyQuery,
+    [filters]
+  );
+
+  // Fetch on load and whenever filters change (300ms wait so typing doesn't fire every key)
+  useEffect(() => {
+    const t = setTimeout(() => getFamilies(query).catch(() => {}), 300);
+    return () => clearTimeout(t);
+  }, [query, getFamilies]);
+
+  // Dropdown options only grow, so they don't shrink while a filter is active
+  useEffect(() => {
+    setCategories((prev) => [...new Set([...prev, ...uniqueValues(families, "category")])].sort());
+    setCities((prev) => [...new Set([...prev, ...uniqueValues(families, "city")])].sort());
+  }, [families]);
 
   const handleAction = (action: FamilyAction, family: Family) => {
     switch (action) {
@@ -45,32 +96,49 @@ export default function FamiliesPage() {
       case "edit":
         return setModal({ mode: "edit", family });
       case "open":
-        return; // family detail view comes in a later step
+        return;
     }
   };
 
-  const handleSaveFamily = (data: FamilyFormData) => {
-    const now = new Date().toISOString();
-
-    if (modal?.mode === "edit") {
-      const id = modal.family._id;
-      setFamilies((prev) => prev.map((f) => (f._id === id ? { ...f, ...data, updatedAt: now } : f)));
-      showToast("Family saved");
-    } else {
-      setFamilies((prev) => [...prev, { ...data, _id: String(Date.now()), createdAt: now, updatedAt: now }]);
-      showToast("Family added");
+  const handleSaveFamily = async (data: FamilyFormData) => {
+    try {
+      if (modal?.mode === "edit") {
+        await updateFamily(modal.family._id, data);
+        showToast("Family saved");
+      } else {
+        await createFamily(data);
+        showToast("Family added");
+      }
+      setModal(null);
+      getFamilies(query).catch(() => {}); // reload so the list matches the active filters
+    } catch {
+      showToast(familyStore.getState().error ?? "Could not save family");
     }
-    setModal(null);
   };
 
-  // Replace all of this family's allocations with the edited list
-  const handleSaveRooms = (family: Family, choices: RoomChoice[]) => {
-    setAllocations((prev) => [
-      ...prev.filter((a) => a.family !== family._id),
-      ...choices.map((c, i) => ({ _id: `${Date.now()}-${i}`, family: family._id, room: c.room, people: c.people })),
-    ]);
-    setModal(null);
-    showToast(`Rooms updated for the ${family.name} Family`);
+  const handleSaveRooms = async (family: Family, choices: RoomChoice[]) => {
+    const existing = allocations.filter((a) => a.family === family._id);
+    const chosenRooms = new Set(choices.map((c) => c.room));
+
+    try {
+      await Promise.all([
+        // rooms the family no longer uses
+        ...existing
+          .filter((a) => !chosenRooms.has(a.room))
+          .map((a) => deleteAllocation(a._id)),
+        // rooms kept (update occupants) or newly added (create)
+        ...choices.map((c) => {
+          const payload = { familyId: family._id, roomId: c.room, occupantsCount: c.people };
+          const match = existing.find((a) => a.room === c.room);
+          return match ? updateAllocation(match._id, payload) : createAllocation(payload);
+        }),
+      ]);
+      await getAllocations(); // create/update return unpopulated ids, so reload the list
+      setModal(null);
+      showToast(`Rooms updated for the ${family.name} Family`);
+    } catch {
+      showToast(allocationStore.getState().error ?? "Could not update rooms");
+    }
   };
 
   return (
@@ -81,17 +149,18 @@ export default function FamiliesPage() {
           Add family
         </button>
       </div>
-      <p className="page__sub">
-        {visible.length} of {families.length} families
-      </p>
+      <p className="page__sub">{families.length} families</p>
+
+      {error && <p className="muted">{error}</p>}
 
       <FamilyFilters filters={filters} onChange={setFilters} categories={categories} cities={cities} />
 
       <div className="family-grid">
-        {visible.map((family) => (
+        {families.map((family) => (
           <FamilyCard key={family._id} family={family} onAction={handleAction} />
         ))}
-        {visible.length === 0 && (
+        {loading && families.length === 0 && <p className="muted">Loading families...</p>}
+        {!loading && families.length === 0 && (
           <p className="muted">No family matches. Clear a filter or add a new family.</p>
         )}
       </div>

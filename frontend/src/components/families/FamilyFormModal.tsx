@@ -54,12 +54,13 @@ function initialState(f?: Family): FormState {
   };
 }
 
-const PHONE_RE = /^\+?[0-9\s-]{7,15}$/; // same rule as the backend validator
+// Phone without the +91 prefix, digits only
+const phoneDigits = (phone: string) => phone.replace(/^\+91/, "").replace(/\D/g, "");
 
 function validate(f: FormState): string | null {
   if (!f.name.trim()) return "Add a family name";
   if (!f.primaryContact.trim()) return "Add a primary contact";
-  if (!PHONE_RE.test(f.phone.trim())) return "Enter a valid phone number";
+  if (phoneDigits(f.phone.trim()).length < 10) return "Enter a valid phone number";
   if (!f.city.trim()) return "Add a city";
 
   const confirmed = Number(f.confirmedCount || 0);
