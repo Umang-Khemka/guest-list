@@ -1,0 +1,93 @@
+.dash-heading {
+  margin: 20px 0 10px;
+  font-size: 19px;
+}
+
+/* ---------- Quick actions ---------- */
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* ---------- Stats ---------- */
+.stat-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stat-card {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.stat-card b {
+  display: block;
+  font: 700 28px var(--font-heading);
+  color: var(--primary);
+}
+
+.stat-card span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.stat-card--hot b {
+  color: var(--rose);
+}
+
+/* ---------- Today's arrivals and departures ---------- */
+.trip-columns {
+  display: grid;
+  gap: 16px;
+}
+
+.dash-list,
+.action-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.trip-card {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.trip-card__car {
+  margin-top: 6px;
+}
+
+/* ---------- Needs action ---------- */
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  .stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .trip-columns {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .action-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
