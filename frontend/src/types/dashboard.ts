@@ -19,3 +19,16 @@ export interface ActionItem {
   family: Family;
   reason: string;
 }
+
+export interface DashboardData {
+  stats: Stat[];
+  arrivals: TodayTrip[];
+  departures: TodayTrip[];
+  needsAction: ActionItem[];
+}
+
+export interface DashboardState extends DashboardData {
+  loading: boolean;
+  error: string | null;
+  getDashboard: () => Promise<void>;
+}

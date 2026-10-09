@@ -10,6 +10,7 @@ import travelRoutes from "./routes/travel.routes.js";
 import vehicleRoutes from "./routes/vehicle.routes.js";
 import vehicleAssignmentRoutes from "./routes/vehicle-assignment.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ app.use("/api/v1/travels", travelRoutes);
 app.use("/api/v1/vehicles", vehicleRoutes);
 app.use("/api/v1/vehicle-assignments", vehicleAssignmentRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 app.listen(PORT, (): void => {
   console.log(`Server is running at ${PORT}`);

@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import ActionRow from "../components/dashboard/ActionRow";
 import QuickActions from "../components/dashboard/QuickActions";
 import StatCard from "../components/dashboard/StatCard";
 import TripCard from "../components/dashboard/TripCard";
-import { useDashboardData } from "../hooks/useDashboardData";
+import { dashboardStore } from "../store/dashboardStore";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
-  const { stats, arrivals, departures, needsAction } = useDashboardData();
+  const { stats, arrivals, departures, needsAction, loading, error, getDashboard } =
+    dashboardStore();
+
+  useEffect(() => {
+    getDashboard().catch(() => {});
+  }, [getDashboard]);
 
   return (
     <div className="page">
@@ -14,6 +20,9 @@ export default function DashboardPage() {
       <p className="page__sub">Everything for the wedding, family by family.</p>
 
       <QuickActions />
+
+      {error && <p className="muted">{error}</p>}
+      {loading && stats.length === 0 && <p className="muted">Loading...</p>}
 
       <div className="stat-grid">
         {stats.map((s) => (
