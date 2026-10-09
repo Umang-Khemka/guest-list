@@ -51,7 +51,7 @@ export const login = async (req: Request, res: Response) => {
     // password has select: false in the model, so it must be requested explicitly
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Account does not exist" });
     }
 
     if (!user.isActive) {
