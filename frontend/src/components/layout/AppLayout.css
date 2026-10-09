@@ -34,6 +34,20 @@
   box-shadow: inset 0 3px var(--gold);
 }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* Desktop: sidebar visible, bottom nav hidden */
 @media (min-width: 900px) {
   .app-shell {
@@ -85,4 +99,55 @@
     font-weight: 700;
     box-shadow: inset 3px 0 var(--gold);
   }
+
+    .topbar {
+    display: none;
+  }
+
+  .sidebar__user {
+    margin-top: auto;
+    padding: 16px 8px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sidebar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+
+  .sidebar__name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sidebar__logout {
+    grid-column: 1 / -1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .sidebar__logout:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
 }
+

@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authStore } from "../../store/userStore";
 
 const ITEMS = [
   { to: "/", label: "Dashboard", short: "Home" },
@@ -14,6 +15,14 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
 
 // Desktop: sidebar. Mobile: bottom bar. CSS decides which one is visible.
 export default function Navigation() {
+  const navigate = useNavigate();
+  const { user, logout } = authStore();
+
+  const handleLogout = async () => {
+    await logout().catch(() => {});
+    navigate("/login", { replace: true });
+  };
+
   return (
     <>
       <aside className="sidebar">
@@ -26,7 +35,22 @@ export default function Navigation() {
             </NavLink>
           ))}
         </nav>
+
+        <div className="sidebar__user">
+          <span className="sidebar__avatar">{user?.name?.charAt(0).toUpperCase()}</span>
+          <span className="sidebar__name">{user?.name}</span>
+          <button className="sidebar__logout" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
       </aside>
+
+      <div className="topbar">
+        <span className="topbar__name">{user?.name}</span>
+        <button className="btn" onClick={handleLogout}>
+          Log out
+        </button>
+      </div>
 
       <nav className="bottom-nav">
         {ITEMS.map((item) => (
