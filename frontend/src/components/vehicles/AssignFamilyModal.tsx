@@ -27,6 +27,7 @@ export default function AssignFamilyModal({ vehicle, families, findConflict, onS
     e.preventDefault();
     if (!familyId) return setError("Choose a family");
     if (!date || !time) return setError("Choose a date and time");
+    if (!location.trim()) return setError("Enter the pickup or drop place");
 
     const busyWith = findConflict(vehicle._id, date, time);
     if (busyWith) return setError(`${vehicle.name} is already booked then for the ${busyWith} Family`);

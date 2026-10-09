@@ -60,7 +60,13 @@ const phoneDigits = (phone: string) => phone.replace(/^\+91/, "").replace(/\D/g,
 function validate(f: FormState): string | null {
   if (!f.name.trim()) return "Add a family name";
   if (!f.primaryContact.trim()) return "Add a primary contact";
-  if (phoneDigits(f.phone.trim()).length < 10) return "Enter a valid phone number";
+  if (!/^[6-9]\d{9}$/.test(phoneDigits(f.primaryContact.trim()))) {
+    return "Primary contact must be a valid 10-digit mobile number";
+  }
+  if (!/^[+\d\s-]+$/.test(f.phone.trim())) return "Phone can only contain digits, spaces, + and -";
+  if (!/^[6-9]\d{9}$/.test(phoneDigits(f.phone.trim()))) {
+    return "Enter a valid 10-digit mobile number";
+  }
   if (!f.city.trim()) return "Add a city";
 
   const confirmed = Number(f.confirmedCount || 0);
@@ -89,8 +95,8 @@ export default function FamilyFormModal({ family, onSave, onClose }: Props) {
 
   const set =
     (key: keyof FormState) =>
-    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-      setForm({ ...form, [key]: e.target.value } as FormState);
+      (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+        setForm({ ...form, [key]: e.target.value } as FormState);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -103,8 +109,8 @@ export default function FamilyFormModal({ family, onSave, onClose }: Props) {
 
     onSave({
       name: form.name.trim().replace(/ family$/i, ""),
-      primaryContact: form.primaryContact.trim(),
-      phone: form.phone.trim(),
+      primaryContact: phoneDigits(form.primaryContact),
+      phone: `+91 ${phoneDigits(form.phone)}`,
       city: form.city.trim(),
       group: form.group,
       relationToGroom: form.relationToGroom.trim() || undefined,
@@ -128,10 +134,18 @@ export default function FamilyFormModal({ family, onSave, onClose }: Props) {
             <input value={form.name} onChange={set("name")} autoFocus />
           </Field>
           <Field label="Primary contact">
-            <input value={form.primaryContact} onChange={set("primaryContact")} />
+            <input
+              value={form.primaryContact}
+              onChange={(e) => setForm({ ...form, primaryContact: e.target.value.replace(/[^\d+\s-]/g, "") })}
+              inputMode="tel"
+            />
           </Field>
           <Field label="WhatsApp / phone">
-            <input value={form.phone} onChange={set("phone")} inputMode="tel" />
+            <input
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/[^\d+\s-]/g, "") })}
+              inputMode="tel"
+            />
           </Field>
           <Field label="City">
             <input value={form.city} onChange={set("city")} />

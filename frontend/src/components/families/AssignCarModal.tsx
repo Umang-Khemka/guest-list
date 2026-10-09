@@ -31,6 +31,7 @@ export default function AssignCarModal({ family, vehicles, initial, findConflict
     e.preventDefault();
     if (!vehicle) return setError("Add a vehicle first");
     if (!date || !time) return setError("Choose a date and time");
+    if (!location.trim()) return setError("Enter the pickup or drop place");
 
     const busyWith = findConflict(vehicle, date, time);
     if (busyWith) {

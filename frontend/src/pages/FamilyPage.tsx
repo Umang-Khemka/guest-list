@@ -6,14 +6,15 @@ import FamilyFilters from "../components/families/FamilyFilters";
 import FamilyFormModal, { type FamilyFormData } from "../components/families/FamilyFormModal";
 import FamilyRoomsModal, { type RoomChoice } from "../components/families/FamilyRoomModal";
 import Toast from "../components/ui/Toast";
-import { useAppData } from "../hooks/useAppData";
-import { useCarAssignment } from "../hooks/useCarAssignment";
 import { useToast } from "../hooks/useToast";
 import { familyStore } from "../store/familyStore";
 import { roomStore } from "../store/roomStore";
 import { allocationStore } from "../store/allocationStore";
+import { vehicleStore } from "../store/vehicleStore";
+import { vehicleAssignmentStore } from "../store/vehicleAssignmentStore";
 import { EMPTY_FILTERS, type Family, type FamilyFilters as Filters, type FamilyQuery } from "../types/family";
 import type { RoomAllocation } from "../types/room";
+import type { VehicleAssignment } from "../types/vehicle";
 import { uniqueValues } from "../utils/filterFamilies";
 import "./FamilyPage.css";
 
@@ -26,7 +27,6 @@ type ModalState =
 
 export default function FamiliesPage() {
   const navigate = useNavigate();
-  const { vehicles } = useAppData();
   const { rooms, getRooms } = roomStore();
   const {
     allocations: rawAllocations,
@@ -35,8 +35,14 @@ export default function FamiliesPage() {
     updateAllocation,
     deleteAllocation,
   } = allocationStore();
+  const { vehicles, getVehicles } = vehicleStore();
+  const {
+    assignments: rawAssignments,
+    getAssignments,
+    createAssignment,
+    updateAssignment,
+  } = vehicleAssignmentStore();
   const { families, loading, error, getFamilies, createFamily, updateFamily } = familyStore();
-  const { findConflict, addAssignment } = useCarAssignment();
   const { toast, showToast } = useToast();
 
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
@@ -44,11 +50,13 @@ export default function FamiliesPage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
 
-  // Load rooms and allocations from the API once
+  // Load rooms, allocations, vehicles and car assignments from the API once
   useEffect(() => {
-    getRooms().catch(() => {});
-    getAllocations().catch(() => {});
-  }, [getRooms, getAllocations]);
+    getRooms().catch(() => { });
+    getAllocations().catch(() => { });
+    getVehicles().catch(() => { });
+    getAssignments().catch(() => { });
+  }, [getRooms, getAllocations, getVehicles, getAssignments]);
 
   // Map API allocations (populated familyId/roomId) to the shape the room modal expects
   const allocations = useMemo<RoomAllocation[]>(
@@ -64,6 +72,32 @@ export default function FamiliesPage() {
     [rawAllocations]
   );
 
+  // Map API car assignments (populated familyId/vehicleId) to the shape the car modal expects
+  const assignments = useMemo<VehicleAssignment[]>(
+    () =>
+      rawAssignments
+        .filter((a) => a.familyId && a.vehicleId) // skip rows whose family/vehicle was deleted
+        .map((a) => ({
+          _id: a._id,
+          family: a.familyId._id,
+          vehicle: a.vehicleId._id,
+          type: a.type,
+          date: a.date.slice(0, 10),
+          time: a.time,
+          location: a.location,
+        })),
+    [rawAssignments]
+  );
+
+  // Is this vehicle already booked at this date and time? (replaces the one in useCarAssignment)
+  // Returns the name of the family already using this car at that date and time, otherwise null
+  const findConflict = (vehicleId: string, date: string, time: string): string | null => {
+    const clash = rawAssignments.find(
+      (a) => a.vehicleId?._id === vehicleId && a.date.slice(0, 10) === date && a.time === time,
+    );
+    return clash?.familyId?.name ?? null;
+  };
+
   // Only send filters that are actually set
   const query = useMemo(
     () =>
@@ -75,7 +109,7 @@ export default function FamiliesPage() {
 
   // Fetch on load and whenever filters change (300ms wait so typing doesn't fire every key)
   useEffect(() => {
-    const t = setTimeout(() => getFamilies(query).catch(() => {}), 300);
+    const t = setTimeout(() => getFamilies(query).catch(() => { }), 300);
     return () => clearTimeout(t);
   }, [query, getFamilies]);
 
@@ -110,7 +144,7 @@ export default function FamiliesPage() {
         showToast("Family added");
       }
       setModal(null);
-      getFamilies(query).catch(() => {}); // reload so the list matches the active filters
+      getFamilies(query).catch(() => { }); // reload so the list matches the active filters
     } catch {
       showToast(familyStore.getState().error ?? "Could not save family");
     }
@@ -138,6 +172,36 @@ export default function FamiliesPage() {
       showToast(`Rooms updated for the ${family.name} Family`);
     } catch {
       showToast(allocationStore.getState().error ?? "Could not update rooms");
+    }
+  };
+
+  const handleSaveCar = async (
+    family: Family,
+    data: Omit<VehicleAssignment, "_id" | "family">
+  ) => {
+    // the backend allows one assignment per family per type (pickup / drop)
+    const existing = assignments.find((a) => a.family === family._id && a.type === data.type);
+    const payload = {
+      familyId: family._id,
+      vehicleId: data.vehicle,
+      type: data.type,
+      date: data.date,
+      time: data.time,
+      location: data.location,
+    };
+
+    try {
+      if (existing) {
+         const { familyId: _familyId, ...changes } = payload;
+        await updateAssignment(existing._id, changes);
+      } else {
+        await createAssignment(payload);
+      }
+      await getAssignments(); // create/update return unpopulated ids, so reload the list
+      setModal(null);
+      showToast("Car assigned");
+    } catch {
+      showToast(vehicleAssignmentStore.getState().error ?? "Could not assign car");
     }
   };
 
@@ -188,11 +252,7 @@ export default function FamiliesPage() {
           family={modal.family}
           vehicles={vehicles}
           findConflict={findConflict}
-          onSave={(data) => {
-            addAssignment(data);
-            setModal(null);
-            showToast("Car assigned");
-          }}
+          onSave={(data) => handleSaveCar(modal.family, data)}
           onClose={() => setModal(null)}
         />
       )}

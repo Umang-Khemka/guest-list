@@ -11,6 +11,10 @@ interface Props {
 }
 
 const PHONE_RE = /^\+?[0-9\s-]{7,15}$/;
+const VEHICLE_NO_RE = /^[A-Z]{2}\d{1,2}[A-Z]{0,3}\d{4}$/;
+
+// Remove spaces and dashes, uppercase
+const cleanVehicleNumber = (v: string) => v.replace(/[\s-]/g, "").toUpperCase();
 
 export default function VehicleFormModal({ onSave, onClose }: Props) {
   const [name, setName] = useState("");
@@ -27,13 +31,16 @@ export default function VehicleFormModal({ onSave, onClose }: Props) {
 
     if (!name.trim()) return setError("Give the vehicle a name");
     if (!vehicleNumber.trim()) return setError("Add the vehicle number");
+    if (!VEHICLE_NO_RE.test(cleanVehicleNumber(vehicleNumber))) {
+      return setError("Enter a valid vehicle number, e.g. GJ05TB4080");
+    }
     if (!driverName.trim()) return setError("Add the driver's name");
     if (!PHONE_RE.test(driverPhone.trim())) return setError("Enter a valid driver phone number");
     if (!Number.isInteger(seats) || seats < 1) return setError("Seats must be at least 1");
 
     onSave({
       name: name.trim(),
-      vehicleNumber: vehicleNumber.trim(),
+      vehicleNumber: cleanVehicleNumber(vehicleNumber),
       driverName: driverName.trim(),
       driverPhone: driverPhone.trim(),
       capacity: seats,
@@ -51,7 +58,11 @@ export default function VehicleFormModal({ onSave, onClose }: Props) {
             <input value={name} onChange={(e) => setName(e.target.value)} autoFocus />
           </Field>
           <Field label="Vehicle number">
-            <input value={vehicleNumber} onChange={(e) => setVehicleNumber(e.target.value)} />
+            <input
+              value={vehicleNumber}
+              onChange={(e) => setVehicleNumber(e.target.value.replace(/[^a-zA-Z0-9\s-]/g, "").toUpperCase())}
+              placeholder="GJ05TB4080"
+            />
           </Field>
           <Field label="Driver name">
             <input value={driverName} onChange={(e) => setDriverName(e.target.value)} />
