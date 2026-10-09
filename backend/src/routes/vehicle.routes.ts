@@ -6,8 +6,11 @@ import {
   updateVehicle,
   deleteVehicle,
 } from "../controllers/vehicle.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post("/create", createVehicle);
 router.get("/all", getVehicles);

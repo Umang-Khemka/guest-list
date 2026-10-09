@@ -7,8 +7,11 @@ import {
   updateRoomAllocation,
   deleteRoomAllocation,
 } from "../controllers/room-allocation.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post("/create-room", createRoomAllocation);
 router.get("/all-allocations", getRoomAllocations);

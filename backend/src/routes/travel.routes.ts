@@ -7,8 +7,11 @@ import {
   updateTravel,
   deleteTravel,
 } from "../controllers/travel.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post("/create", createTravel);
 router.get("/all-travels", getTravels);

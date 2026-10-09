@@ -7,8 +7,11 @@ import {
   updateVehicleAssignment,
   deleteVehicleAssignment,
 } from "../controllers/vehicle-assignment.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post("/create", createVehicleAssignment);
 router.get("/all", getVehicleAssignments);
