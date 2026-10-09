@@ -18,8 +18,7 @@ export type CreateVehicleAssignmentInput = z.infer<
 
 export const updateVehicleAssignmentSchema = createVehicleAssignmentSchema
   .omit({
-    familyId: true,
-    vehicleId: true,
+    familyId: true
   })
   .partial()
   .strict();

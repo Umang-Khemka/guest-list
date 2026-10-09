@@ -17,7 +17,7 @@ const phone = z
 export const createFamilySchema = z
   .object({
     name: z.string().trim().min(1, "Family name is required"),
-    primaryContact: z.string().trim().min(1, "Primary contact is required"),
+    primaryContact: z.string().trim().regex(/^[6-9]\d{9}$/, "Primary contact must be a valid 10-digit mobile number"),
     phone,
     alternatePhone: phone.optional(),
 
