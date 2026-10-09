@@ -11,7 +11,7 @@ import { useAppData } from "../hooks/useAppData";
 import { useToast } from "../hooks/useToast";
 import type { CampaignRecipient, Sender, TemplateId } from "../types/message";
 import { buildTemplateValues, fillTemplate } from "../utils/templateUtils";
-import "./WhatsAppPage.css";
+import "../styles/WhatsAppPage.css";
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 

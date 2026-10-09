@@ -4,7 +4,7 @@ import QuickActions from "../components/dashboard/QuickActions";
 import StatCard from "../components/dashboard/StatCard";
 import TripCard from "../components/dashboard/TripCard";
 import { dashboardStore } from "../store/dashboardStore";
-import "./DashboardPage.css";
+import "../styles/DashboardPage.css";
 
 export default function DashboardPage() {
   const { stats, arrivals, departures, needsAction, loading, error, getDashboard } =

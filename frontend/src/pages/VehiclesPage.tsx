@@ -8,7 +8,7 @@ import { familyStore } from "../store/familyStore";
 import { vehicleStore } from "../store/vehicleStore";
 import { vehicleAssignmentStore } from "../store/vehicleAssignmentStore";
 import type { Vehicle, VehicleAssignment } from "../types/vehicle";
-import "./VehiclesPage.css";
+import "../styles/VehiclesPage.css";
 
 type ModalState = { mode: "add" } | { mode: "assign"; vehicle: Vehicle } | null;
 

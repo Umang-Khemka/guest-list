@@ -12,7 +12,7 @@ import type { Family } from "../types/family";
 import type { Travel, TravelLeg } from "../types/travel";
 import type { AssignmentType, VehicleAssignment } from "../types/vehicle";
 import { fromApiLeg, toApiLeg } from "../utils/travelMapper";
-import "./TravelPage.css";
+import "../styles/TravelPage.css";
 
 type ModalState =
   | { mode: "add"; familyId?: string }

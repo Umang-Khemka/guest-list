@@ -9,7 +9,7 @@ import { familyStore } from "../store/familyStore";
 import { roomStore } from "../store/roomStore";
 import type { Room, RoomAllocation } from "../types/room";
 import { freeBeds } from "../utils/roomUtils";
-import "./RoomPage.css";
+import "../styles/RoomPage.css";
 const ACCEPTED_STATUS = "confirmed";
 
 type ModalState = { mode: "add" } | { mode: "allocate"; room: Room } | null;

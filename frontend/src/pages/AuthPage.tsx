@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { authStore } from "../store/userStore";
-import "./AuthPage.css";
+import "../styles/AuthPage.css";
 
 type Mode = "login" | "register";
 

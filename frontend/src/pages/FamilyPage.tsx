@@ -16,7 +16,7 @@ import { EMPTY_FILTERS, type Family, type FamilyFilters as Filters, type FamilyQ
 import type { RoomAllocation } from "../types/room";
 import type { VehicleAssignment } from "../types/vehicle";
 import { uniqueValues } from "../utils/filterFamilies";
-import "./FamilyPage.css";
+import "../styles/FamilyPage.css";
 
 type ModalState =
   | { mode: "add" }
