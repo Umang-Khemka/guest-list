@@ -1,13 +1,11 @@
-import mongoose, { Document, Schema } from "mongoose";
+
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: "admin";
-
-  createdAt: Date;
-  updatedAt: Date;
+  isActive: boolean;
 }
 
 const userSchema = new Schema<IUser>(
@@ -17,7 +15,6 @@ const userSchema = new Schema<IUser>(
       required: true,
       trim: true,
     },
-
     email: {
       type: String,
       required: true,
@@ -25,23 +22,17 @@ const userSchema = new Schema<IUser>(
       lowercase: true,
       trim: true,
     },
-
     password: {
       type: String,
       required: true,
+      select: false,
     },
-
-    role: {
-      type: String,
-      enum: ["admin"],
-      default: "admin",
+    isActive: {
+      type: Boolean,
+      default: true,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-const User = mongoose.model<IUser>("User", userSchema);
-
-export default User;
+export default mongoose.model<IUser>("User", userSchema);
