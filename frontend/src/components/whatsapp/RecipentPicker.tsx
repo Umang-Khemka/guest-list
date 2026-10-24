@@ -15,7 +15,7 @@ export default function RecipientPicker({ families, selected, onToggle, onSelect
   const shown = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return families;
-    return families.filter((f) => `${f.name} ${f.primaryContact} ${f.city}`.toLowerCase().includes(q));
+    return families.filter((f) => `${f.name} ${f.primaryContact} ${f.city} ${f.members.map((m) => `${m.name} ${m.contactNumber} ${m.whatsappNumber}`).join(" ")}`.toLowerCase().includes(q));
   }, [families, search]);
 
   return (

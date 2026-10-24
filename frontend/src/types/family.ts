@@ -12,12 +12,18 @@ export type FamilyStatus = "pending" | "confirmed" | "declined";
 export type GuestType = "local" | "outstation";
 export type Priority = "normal" | "important" | "vip";
 
+export interface FamilyMember {
+  name: string;
+  contactNumber: string;
+  whatsappNumber: string;
+}
+
 export interface Family {
   _id: string;
   name: string;
   primaryContact: string;
   phone: string;
-  alternatePhone?: string;
+  members: FamilyMember[];
 
   city: string;
   address?: string;
@@ -60,7 +66,7 @@ export const EMPTY_FILTERS: FamilyFilters = {
   city: "",
 };
 
-export type CreateFamilyInput = Omit<Family, "_id" | "createdAt" | "updatedAt">;
+export type CreateFamilyInput = Omit<Family, "_id" | "createdAt" | "updatedAt" | "invitedCount">;
 
 export type UpdateFamilyInput = Partial<CreateFamilyInput>;
 

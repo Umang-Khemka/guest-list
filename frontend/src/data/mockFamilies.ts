@@ -28,6 +28,7 @@ function family(
     name,
     primaryContact: `${name} Ji`,
     phone,
+    members: [{ name: `${name} Contact`, contactNumber: phone, whatsappNumber: phone }],
     city,
     relationToGroom,
     category,

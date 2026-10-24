@@ -20,7 +20,10 @@ export const createFamily = async (
       });
     }
 
-    const family = await Family.create(parsed.data);
+    const family = await Family.create({
+      ...parsed.data,
+      invitedCount: parsed.data.members.length,
+    });
 
     return res.status(201).json({
       success: true,
@@ -90,7 +93,9 @@ export const getFamilies = async (
         { name: regex },
         { primaryContact: regex },
         { phone: regex },
-        { alternatePhone: regex },
+        { "members.name": regex },
+        { "members.contactNumber": regex },
+        { "members.whatsappNumber": regex },
         { city: regex },
       ];
     }
@@ -150,9 +155,14 @@ export const updateFamily = async (
       });
     }
 
+    const update = {
+      ...parsed.data,
+      ...(parsed.data.members ? { invitedCount: parsed.data.members.length } : {}),
+    };
+
     const family = await Family.findByIdAndUpdate(
       req.params.id,
-      parsed.data,
+      update,
       {
         new: true,
         runValidators: true,

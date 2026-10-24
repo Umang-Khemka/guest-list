@@ -12,14 +12,24 @@ export const GROUPS = [
 const phone = z
   .string()
   .trim()
-  .regex(/^\+?[0-9\s-]{7,15}$/, "Enter a valid phone number");
+  .regex(/^\+?[0-9\s-]+$/, "Enter a valid phone number")
+  .refine((value) => {
+    const digits = value.replace(/\D/g, "").length;
+    return digits >= 7 && digits <= 15;
+  }, "Phone number must contain 7 to 15 digits");
+
+const familyMember = z.object({
+  name: z.string().trim().min(1, "Member name is required"),
+  contactNumber: phone,
+  whatsappNumber: phone,
+}).strict();
 
 export const createFamilySchema = z
   .object({
     name: z.string().trim().min(1, "Family name is required"),
-    primaryContact: z.string().trim().regex(/^[6-9]\d{9}$/, "Primary contact must be a valid 10-digit mobile number"),
+    primaryContact: phone,
     phone,
-    alternatePhone: phone.optional(),
+    members: z.array(familyMember).min(1, "Add at least one family member"),
 
     city: z.string().trim().min(1, "City is required"),
     address: z.string().trim().optional(),
@@ -28,7 +38,6 @@ export const createFamilySchema = z
     category: z.string().trim().optional(),
     group: z.enum(GROUPS),
 
-    invitedCount: z.number().int().min(1),
     confirmedCount: z.number().int().min(0).default(0),
 
     status: z.enum(["pending", "confirmed", "declined"]).default("pending"),

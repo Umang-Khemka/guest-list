@@ -73,3 +73,36 @@
 .form-add {
   margin-top: 12px;
 }
+
+.family-member-list {
+  display: grid;
+  gap: 10px;
+}
+
+.family-member-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.family-member-row label span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.family-member-row input {
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .family-member-row {
+    grid-template-columns: 1fr 1fr 1fr auto;
+  }
+}

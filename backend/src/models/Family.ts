@@ -4,7 +4,11 @@ export interface IFamily extends Document {
   name: string;
   primaryContact: string;
   phone: string;
-  alternatePhone?: string;
+  members: Array<{
+    name: string;
+    contactNumber: string;
+    whatsappNumber: string;
+  }>;
 
   city: string;
   address?: string;
@@ -54,9 +58,16 @@ const familySchema = new Schema<IFamily>(
       trim: true,
     },
 
-    alternatePhone: {
-      type: String,
-      trim: true,
+    members: {
+      type: [
+        {
+          _id: false,
+          name: { type: String, required: true, trim: true },
+          contactNumber: { type: String, required: true, trim: true },
+          whatsappNumber: { type: String, required: true, trim: true },
+        },
+      ],
+      default: [],
     },
 
     city: {
