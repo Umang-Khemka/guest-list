@@ -11,6 +11,7 @@ import vehicleRoutes from "./routes/vehicle.routes.js";
 import vehicleAssignmentRoutes from "./routes/vehicle-assignment.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import campaignRoutes from "./routes/campaign.routes.js";
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use("/api/v1/vehicles", vehicleRoutes);
 app.use("/api/v1/vehicle-assignments", vehicleAssignmentRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/campaign",campaignRoutes);
 
 app.listen(PORT, (): void => {
   console.log(`Server is running at ${PORT}`);

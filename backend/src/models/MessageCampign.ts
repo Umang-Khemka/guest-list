@@ -1,86 +1,61 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+export type RecipientStatus = "pending" | "sent" | "delivered" | "read" | "failed";
+
 interface IMessageRecipient {
+  _id: mongoose.Types.ObjectId;
   familyId: mongoose.Types.ObjectId;
-  status: "pending" | "sent" | "failed";
+  memberName: string;
+  phone: string; // normalized, digits only, with country code
+  status: RecipientStatus;
+  waMessageId?: string;
   sentAt?: Date;
+  deliveredAt?: Date;
+  readAt?: Date;
   error?: string;
 }
 
 export interface IMessageCampaign extends Document {
+  sender: "mom" | "dad";
   templateId?: mongoose.Types.ObjectId;
-
   message: string;
   mediaUrl?: string;
-
   recipients: IMessageRecipient[];
-
   createdAt: Date;
   updatedAt: Date;
 }
 
-const messageRecipientSchema = new Schema<IMessageRecipient>(
-  {
-    familyId: {
-      type: Schema.Types.ObjectId,
-      ref: "Family",
-      required: true,
-    },
-
-    status: {
-      type: String,
-      enum: ["pending", "sent", "failed"],
-      default: "pending",
-    },
-
-    sentAt: {
-      type: Date,
-    },
-
-    error: {
-      type: String,
-      trim: true,
-    },
+const recipientSchema = new Schema<IMessageRecipient>({
+  familyId: { type: Schema.Types.ObjectId, ref: "Family", required: true },
+  memberName: { type: String, required: true, trim: true },
+  phone: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ["pending", "sent", "delivered", "read", "failed"],
+    default: "pending",
   },
-  { _id: false }
-);
+  waMessageId: { type: String, index: true },
+  sentAt: Date,
+  deliveredAt: Date,
+  readAt: Date,
+  error: { type: String, trim: true },
+});
 
-const messageCampaignSchema = new Schema<IMessageCampaign>(
+const campaignSchema = new Schema<IMessageCampaign>(
   {
-    templateId: {
-      type: Schema.Types.ObjectId,
-      ref: "MessageTemplate",
-    },
-
-    message: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    mediaUrl: {
-      type: String,
-      trim: true,
-    },
-
+    sender: { type: String, enum: ["mom", "dad"], required: true },
+    templateId: { type: Schema.Types.ObjectId, ref: "MessageTemplate" },
+    message: { type: String, required: true, trim: true },
+    mediaUrl: { type: String, trim: true },
     recipients: {
-      type: [messageRecipientSchema],
-      required: true,
+      type: [recipientSchema],
       validate: {
-        validator: (recipients: IMessageRecipient[]) =>
-          recipients.length > 0,
+        validator: (r: unknown[]) => r.length > 0,
         message: "Campaign must have at least one recipient",
       },
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true },
 );
 
-const MessageCampaign = mongoose.model<IMessageCampaign>(
-  "MessageCampaign",
-  messageCampaignSchema
-);
-
-export default MessageCampaign;
+export default mongoose.model<IMessageCampaign>("MessageCampaign", campaignSchema);
