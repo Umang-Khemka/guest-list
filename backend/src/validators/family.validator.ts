@@ -32,17 +32,14 @@ export const createFamilySchema = z
     members: z.array(familyMember).min(1, "Add at least one family member"),
 
     city: z.string().trim().min(1, "City is required"),
-    address: z.string().trim().optional(),
 
     relationToGroom: z.string().trim().optional(),
-    category: z.string().trim().optional(),
     group: z.enum(GROUPS),
 
     confirmedCount: z.number().int().min(0).default(0),
 
     status: z.enum(["pending", "confirmed", "declined"]).default("pending"),
     guestType: z.enum(["local", "outstation"]),
-    priority: z.enum(["normal", "important", "vip"]).default("normal"),
 
     notes: z.string().trim().optional(),
   })

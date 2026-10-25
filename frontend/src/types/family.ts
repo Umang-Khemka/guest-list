@@ -26,10 +26,8 @@ export interface Family {
   members: FamilyMember[];
 
   city: string;
-  address?: string;
 
   relationToGroom?: string;
-  category?: string;
   group: FamilyGroup;
 
   invitedCount: number;
@@ -37,7 +35,6 @@ export interface Family {
 
   status: FamilyStatus;
   guestType: GuestType;
-  priority: Priority;
 
   notes?: string;
 
@@ -51,8 +48,6 @@ export interface FamilyFilters {
   group: "" | FamilyGroup;
   status: "" | FamilyStatus;
   guestType: "" | GuestType;
-  priority: "" | Priority;
-  category: string;
   city: string;
 }
 
@@ -61,8 +56,6 @@ export const EMPTY_FILTERS: FamilyFilters = {
   group: "",
   status: "",
   guestType: "",
-  priority: "",
-  category: "",
   city: "",
 };
 
@@ -73,8 +66,6 @@ export type UpdateFamilyInput = Partial<CreateFamilyInput>;
 export interface FamilyQuery {
   search?: string;
   status?: string;
-  guestType?: string;
-  priority?: string;
   category?: string;
   group?: string;
   city?: string;

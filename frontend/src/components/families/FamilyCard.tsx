@@ -1,5 +1,6 @@
-import { GROUP_LABELS, GUEST_TYPE_LABELS, PRIORITY_LABELS } from "../../constants/family";
+import { GROUP_LABELS, GUEST_TYPE_LABELS } from "../../constants/family";
 import type { Family } from "../../types/family";
+import { formatPhone } from "../../utils/formatPhone";
 import StatusPill from "../ui/StatusPill";
 
 export type FamilyAction = "open" | "chat" | "room" | "pickup" | "edit";
@@ -18,7 +19,7 @@ export default function FamilyCard({ family, onAction }: Props) {
         <div>
           <h3 className="family-card__name">{family.name} Family</h3>
           <div className="muted">
-            {family.primaryContact} · {family.city} · {GUEST_TYPE_LABELS[family.guestType]}
+            {formatPhone(family.primaryContact)} · {family.city} · {GUEST_TYPE_LABELS[family.guestType]}
           </div>
         </div>
         <StatusPill status={family.status} />
@@ -27,8 +28,6 @@ export default function FamilyCard({ family, onAction }: Props) {
       <div className="muted family-card__meta">
         {GROUP_LABELS[family.group]}
         {family.relationToGroom && ` · ${family.relationToGroom}`}
-        {family.category && ` · ${family.category}`}
-        {` · ${PRIORITY_LABELS[family.priority]}`}
       </div>
 
       <div className="family-card__count">

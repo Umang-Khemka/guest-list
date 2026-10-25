@@ -11,10 +11,8 @@ export interface IFamily extends Document {
   }>;
 
   city: string;
-  address?: string;
 
   relationToGroom?: string;
-  category?: string;
   group:
     | "mom_side"
     | "dad_side"
@@ -30,7 +28,6 @@ export interface IFamily extends Document {
 
   guestType: "local" | "outstation";
 
-  priority: "normal" | "important" | "vip";
 
   notes?: string;
 
@@ -76,20 +73,12 @@ const familySchema = new Schema<IFamily>(
       trim: true,
     },
 
-    address: {
-      type: String,
-      trim: true,
-    },
 
     relationToGroom: {
       type: String,
       trim: true,
     },
 
-    category: {
-      type: String,
-      trim: true,
-    },
 
     group: {
       type: String,
@@ -128,11 +117,6 @@ const familySchema = new Schema<IFamily>(
       required: true,
     },
 
-    priority: {
-      type: String,
-      enum: ["normal", "important", "vip"],
-      default: "normal",
-    },
 
     notes: {
       type: String,

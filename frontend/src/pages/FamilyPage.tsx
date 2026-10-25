@@ -17,12 +17,14 @@ import type { RoomAllocation } from "../types/room";
 import type { VehicleAssignment } from "../types/vehicle";
 import { uniqueValues } from "../utils/filterFamilies";
 import "../styles/FamilyPage.css";
+import FamilyDetailsModal from "../components/families/FamilyDetailModal";
 
 type ModalState =
   | { mode: "add" }
   | { mode: "edit"; family: Family }
   | { mode: "rooms"; family: Family }
   | { mode: "car"; family: Family }
+  | { mode: "details"; family: Family }
   | null;
 
 export default function FamiliesPage() {
@@ -130,7 +132,7 @@ export default function FamiliesPage() {
       case "edit":
         return setModal({ mode: "edit", family });
       case "open":
-        return;
+        return setModal({ mode: "details", family });
     }
   };
 
@@ -192,7 +194,7 @@ export default function FamiliesPage() {
 
     try {
       if (existing) {
-         const { familyId: _familyId, ...changes } = payload;
+        const { familyId: _familyId, ...changes } = payload;
         await updateAssignment(existing._id, changes);
       } else {
         await createAssignment(payload);
@@ -253,6 +255,17 @@ export default function FamiliesPage() {
           vehicles={vehicles}
           findConflict={findConflict}
           onSave={(data) => handleSaveCar(modal.family, data)}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {modal?.mode === "details" && (
+        <FamilyDetailsModal
+          family={modal.family}
+          rooms={rooms}
+          allocations={allocations}
+          vehicles={vehicles}
+          assignments={assignments}
           onClose={() => setModal(null)}
         />
       )}
