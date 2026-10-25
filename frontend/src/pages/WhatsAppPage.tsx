@@ -9,6 +9,7 @@ import Toast from "../components/ui/Toast";
 import { MEDIA_OPTIONS, SENDERS, TEMPLATES, TEMPLATE_VARIABLES } from "../constants/messaging";
 import { useAppData } from "../hooks/useAppData";
 import { useToast } from "../hooks/useToast";
+import { familyStore } from "../store/familyStore"; // adjust to wherever the store file lives
 import type { CampaignRecipient, Sender, TemplateId } from "../types/message";
 import { buildTemplateValues, fillTemplate } from "../utils/templateUtils";
 import "../styles/WhatsAppPage.css";
@@ -19,14 +20,19 @@ const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve,
 const simulateSend = () => Math.random() > 0.1;
 
 export default function WhatsAppPage() {
-  const { families, travels, rooms, allocations, vehicles, assignments, setCampaigns } = useAppData();
+  const { travels, rooms, allocations, vehicles, assignments, setCampaigns } = useAppData();
+  const families = familyStore((s) => s.families);
+  const loading = familyStore((s) => s.loading);
+  const loadError = familyStore((s) => s.error);
+  const getFamilies = familyStore((s) => s.getFamilies);
+
   const [params] = useSearchParams();
   const { toast, showToast } = useToast();
 
   const [sender, setSender] = useState<Sender>("mom");
   const [selected, setSelected] = useState<Set<string>>(() => {
     const id = params.get("family"); // set by the Chat button on a family card
-    return id && families.some((f) => f._id === id) ? new Set([id]) : new Set();
+    return id ? new Set([id]) : new Set();
   });
   const [templateId, setTemplateId] = useState<TemplateId>("invitation");
   const [message, setMessage] = useState(TEMPLATES.invitation.body);
@@ -43,6 +49,10 @@ export default function WhatsAppPage() {
       mounted.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    getFamilies().catch(() => {}); // the store already saves the error message
+  }, [getFamilies]);
 
   const sortedFamilies = useMemo(() => [...families].sort((a, b) => a.name.localeCompare(b.name)), [families]);
   const recipients = sortedFamilies.filter((f) => selected.has(f._id));
@@ -123,14 +133,25 @@ export default function WhatsAppPage() {
           </Field>
 
           <div className="field">
-            <span className="field__label">Families ({selected.size} selected)</span>
-            <RecipientPicker
-              families={sortedFamilies}
-              selected={selected}
-              onToggle={toggle}
-              onSelectMany={(ids) => setSelected((prev) => new Set([...prev, ...ids]))}
-              onClear={() => setSelected(new Set())}
-            />
+            <span className="field__label">Families ({recipients.length} selected)</span>
+            {loading && families.length === 0 ? (
+              <p className="muted">Loading families…</p>
+            ) : loadError && families.length === 0 ? (
+              <p className="form-error" role="alert">
+                {loadError}{" "}
+                <button type="button" className="btn" onClick={() => getFamilies().catch(() => {})}>
+                  Retry
+                </button>
+              </p>
+            ) : (
+              <RecipientPicker
+                families={sortedFamilies}
+                selected={selected}
+                onToggle={toggle}
+                onSelectMany={(ids) => setSelected((prev) => new Set([...prev, ...ids]))}
+                onClear={() => setSelected(new Set())}
+              />
+            )}
           </div>
 
           <Field label="Template">

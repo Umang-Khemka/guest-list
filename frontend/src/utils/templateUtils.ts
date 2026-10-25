@@ -25,9 +25,16 @@ export function buildTemplateValues(family: Family, ctx: TemplateContext): Recor
   const pickup = ctx.assignments.find((a) => a.family === family._id && a.type === "pickup");
   const vehicle = pickup && ctx.vehicles.find((v) => v._id === pickup.vehicle);
 
+   const contactMember =
+    family.members.find(
+      (m) => m.whatsappNumber === family.primaryContact || m.contactNumber === family.primaryContact,
+    ) ?? family.members[0];
+
+  const contactName = (contactMember?.name ?? family.name).replace(/ Ji$/, "");
+
   return {
     family: `${family.name} Family`,
-    primaryContact: family.primaryContact.replace(/ Ji$/, ""),
+    primaryContact: contactName,
     city: family.city,
     arrivalDate: arrival ? formatDate(arrival.date) : "(date to be shared)",
     arrivalTime: arrival ? formatTime(arrival.time) : "(time to be shared)",
