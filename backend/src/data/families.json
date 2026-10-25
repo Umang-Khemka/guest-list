@@ -1,0 +1,366 @@
+[
+  {
+    "name": "Sri Radheshyam Ji Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number struck out in notebook: Sunita Bajaj",
+    "members": [
+      {
+        "name": "Sri Radheshyam Ji",
+        "contactNumber": "+919831017718",
+        "whatsappNumber": "+919831017718"
+      },
+      {
+        "name": "Sita Bai",
+        "contactNumber": "+916290629934",
+        "whatsappNumber": "+916290629934"
+      },
+      {
+        "name": "Rajesh Bajaj",
+        "contactNumber": "+919831783130",
+        "whatsappNumber": "+919831783130"
+      },
+      {
+        "name": "Sunita Bajaj",
+        "contactNumber": "+918961073074",
+        "whatsappNumber": "+918961073074"
+      },
+      {
+        "name": "Aanand Bajaj",
+        "contactNumber": "+919831717718",
+        "whatsappNumber": "+919831717718"
+      },
+      {
+        "name": "Kusum Bajaj",
+        "contactNumber": "+919999988888",
+        "whatsappNumber": "+919999988888"
+      }
+    ]
+  },
+  {
+    "name": "Omi Bhaiya Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number struck out in notebook: first Anita Bhabhi, Sneh Bhabhi",
+    "members": [
+      {
+        "name": "Omi Bhaiya",
+        "contactNumber": "+919830166004",
+        "whatsappNumber": "+919830166004"
+      },
+      {
+        "name": "Anita Bhabhi",
+        "contactNumber": "+918017851423",
+        "whatsappNumber": "+918017851423"
+      },
+      {
+        "name": "Narayan Bhaiya",
+        "contactNumber": "+919830035134",
+        "whatsappNumber": "+919830035134"
+      },
+      {
+        "name": "Sneh Bhabhi",
+        "contactNumber": "+918902402967",
+        "whatsappNumber": "+918902402967"
+      },
+      {
+        "name": "Raju Bhaiya",
+        "contactNumber": "+919377808753",
+        "whatsappNumber": "+919377808753"
+      },
+      {
+        "name": "Baby Bhabhi",
+        "contactNumber": "+917990933457",
+        "whatsappNumber": "+917990933457"
+      },
+      {
+        "name": "Pawan Bhaiya",
+        "contactNumber": "+919374706386",
+        "whatsappNumber": "+919374706386"
+      },
+      {
+        "name": "Anita Bhabhi",
+        "contactNumber": "+919825500263",
+        "whatsappNumber": "+919825500263"
+      }
+    ]
+  },
+  {
+    "name": "Kusum Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Manish Kejriwal alternate number: +919861640002",
+    "members": [
+      {
+        "name": "Kusum Didi",
+        "contactNumber": "+919090959043",
+        "whatsappNumber": "+919090959043"
+      },
+      {
+        "name": "Manish Kejriwal",
+        "contactNumber": "+919831461920",
+        "whatsappNumber": "+919831461920"
+      },
+      {
+        "name": "Archana Kejriwal",
+        "contactNumber": "+919090959042",
+        "whatsappNumber": "+919090959042"
+      }
+    ]
+  },
+  {
+    "name": "Manju Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number struck out in notebook: Kirtty Chowdhary and Sweta too",
+    "members": [
+      {
+        "name": "Manju Didi",
+        "contactNumber": "+919831093874",
+        "whatsappNumber": "+919831093874"
+      },
+      {
+        "name": "Vikram Chowdhary",
+        "contactNumber": "+919331840508",
+        "whatsappNumber": "+919331840508"
+      },
+      {
+        "name": "Kirtty Chowdhary",
+        "contactNumber": "+919831023468",
+        "whatsappNumber": "+919831023468"
+      },
+      {
+        "name": "Chirtu Chowdhary",
+        "contactNumber": "+919331840506",
+        "whatsappNumber": "+919331840506"
+      },
+      {
+        "name": "Sweta Chowdhary",
+        "contactNumber": "+919831069001",
+        "whatsappNumber": "+919831069001"
+      }
+    ]
+  },
+  {
+    "name": "Renu Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Renu Didi",
+        "contactNumber": "+918420888105",
+        "whatsappNumber": "+918420888105"
+      },
+      {
+        "name": "Gopal Jijaji",
+        "contactNumber": "+919748255626",
+        "whatsappNumber": "+919748255626"
+      }
+    ]
+  },
+  {
+    "name": "Anju Did Family",
+    "city": "Chennai",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number struck out in notebook: Vaishali Goyal",
+    "members": [
+      {
+        "name": "Suresh Jijaji",
+        "contactNumber": "+919841040215",
+        "whatsappNumber": "+919841040215"
+      },
+      {
+        "name": "Anju Didi",
+        "contactNumber": "+919841132932",
+        "whatsappNumber": "+919841132932"
+      },
+      {
+        "name": "Aashis Goyal",
+        "contactNumber": "+919841115293",
+        "whatsappNumber": "+919841115293"
+      },
+      {
+        "name": "Vaishali Goyal",
+        "contactNumber": "+919841185355",
+        "whatsappNumber": "+919841185355"
+      }
+    ]
+  },
+  {
+    "name": "Anita Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Anita Didi",
+        "contactNumber": "+919143007849",
+        "whatsappNumber": "+919143007849"
+      },
+      {
+        "name": "Ankit Agarwal",
+        "contactNumber": "+919143007874",
+        "whatsappNumber": "+919143007874"
+      },
+      {
+        "name": "Cherry Agarwal",
+        "contactNumber": "+917003079198",
+        "whatsappNumber": "+917003079198"
+      }
+    ]
+  },
+  {
+    "name": "Suman Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number struck out in notebook: Shruti",
+    "members": [
+      {
+        "name": "Suman Didi",
+        "contactNumber": "+919163754056",
+        "whatsappNumber": "+919163754056"
+      },
+      {
+        "name": "Vishnu Jijaji",
+        "contactNumber": "+919831364282",
+        "whatsappNumber": "+919831364282"
+      },
+      {
+        "name": "Pratik",
+        "contactNumber": "+919748338348",
+        "whatsappNumber": "+919748338348"
+      },
+      {
+        "name": "Shruti",
+        "contactNumber": "+918582974800",
+        "whatsappNumber": "+918582974800"
+      },
+      {
+        "name": "Yash",
+        "contactNumber": "+919748198737",
+        "whatsappNumber": "+919748198737"
+      }
+    ]
+  },
+  {
+    "name": "Baby Didi Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Baby Didi",
+        "contactNumber": "+919331598814",
+        "whatsappNumber": "+919331598814"
+      },
+      {
+        "name": "Rajesh Jijaji",
+        "contactNumber": "+919831360330",
+        "whatsappNumber": "+919831360330"
+      }
+    ]
+  },
+  {
+    "name": "Pinky Didi Family",
+    "city": "Hyderabad",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Pinky Didi",
+        "contactNumber": "+919642992771",
+        "whatsappNumber": "+919642992771"
+      },
+      {
+        "name": "Subhas Jijaji",
+        "contactNumber": "+919849792771",
+        "whatsappNumber": "+919849792771"
+      }
+    ]
+  },
+  {
+    "name": "Kedia",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Number is not there for Ramakanji Kedia",
+    "members": [
+      {
+        "name": "Manta Kedia",
+        "contactNumber": "+917596939797",
+        "whatsappNumber": "+917596939797"
+      },
+      {
+        "name": "Ramakanji Kedia",
+        "contactNumber": "+918888899999",
+        "whatsappNumber": "+918888899999"
+      }
+    ]
+  },
+  {
+    "name": "Aagrwal",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Laxminarayanji Aagrwal",
+        "contactNumber": "+919830266555",
+        "whatsappNumber": "+919830266555"
+      },
+      {
+        "name": "Rashmi Aagrwal",
+        "contactNumber": "+919831068160",
+        "whatsappNumber": "+919831068160"
+      }
+    ]
+  }
+]

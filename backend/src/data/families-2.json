@@ -1,0 +1,205 @@
+[
+  {
+    "name": "Gopal Ji Agarwal",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Gopal Ji Agarwal not available",
+    "members": [
+      {
+        "name": "Sweety Agarwal",
+        "contactNumber": "+919163635380",
+        "whatsappNumber": "+919163635380"
+      },
+      {
+        "name": "Gopal Ji Agarwal",
+        "contactNumber": "+919998887452",
+        "whatsappNumber": "+919998887452"
+      }
+    ]
+  },
+  {
+    "name": "Mina Sureka Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Vinitji Number not present",
+    "members": [
+      {
+        "name": "Mina Sureka",
+        "contactNumber": "+917003252192",
+        "whatsappNumber": "+917003252192"
+      },
+      {
+        "name": "Vinit Ji Sureka",
+        "contactNumber": "+915623562388",
+        "whatsappNumber": "+915623562388"
+      }
+    ]
+  },
+  {
+    "name": "Amit Ji Chowdhary",
+    "city": "Chennai",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Sweta Chowdhary",
+        "contactNumber": "+919361137000",
+        "whatsappNumber": "+919361137000"
+      },
+      {
+        "name": "Amit Ji Chowdhary",
+        "contactNumber": "+919360037000",
+        "whatsappNumber": "+919360037000"
+      }
+    ]
+  },
+  {
+    "name": "Rohit Ji Agarwal",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Vishakha Aagrwal",
+        "contactNumber": "+919903638960",
+        "whatsappNumber": "+919903638960"
+      },
+      {
+        "name": "Rohit Ji Agarwal",
+        "contactNumber": "+919831421681",
+        "whatsappNumber": "+919831421681"
+      }
+    ]
+  },
+  {
+    "name": "Tauji Family",
+    "city": "Surat",
+    "group": "dad_side",
+    "guestType": "local",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Ramakan Khemka",
+        "contactNumber": "+919830231317",
+        "whatsappNumber": "+919830231317"
+      },
+      {
+        "name": "Kusum Khemka",
+        "contactNumber": "+919038078575",
+        "whatsappNumber": "+919038078575"
+      },
+      {
+        "name": "Jatin Khemka",
+        "contactNumber": "+919051207023",
+        "whatsappNumber": "+919051207023"
+      }
+    ]
+  },
+  {
+    "name": "Sanjay Ji Kedia",
+    "city": "Surat",
+    "group": "dad_side",
+    "guestType": "local",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Sanjay Ji Kedia",
+        "contactNumber": "+919377266062",
+        "whatsappNumber": "+919377266062"
+      },
+      {
+        "name": "Sweta Kedia",
+        "contactNumber": "+919510310616",
+        "whatsappNumber": "+919510310616"
+      }
+    ]
+  },
+  {
+    "name": "Mukesh Ji Goyal",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Sikha Goyal",
+        "contactNumber": "+919831183942",
+        "whatsappNumber": "+919831183942"
+      },
+      {
+        "name": "Mukesh Ji Goyal",
+        "contactNumber": "+919903137942",
+        "whatsappNumber": "+919903137942"
+      }
+    ]
+  },
+  {
+    "name": "Ekta Agarwal",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "",
+    "members": [
+      {
+        "name": "Ekta Agarwal",
+        "contactNumber": "+919883320644",
+        "whatsappNumber": "+919883320644"
+      },
+      {
+        "name": "Akshay Agarwal",
+        "contactNumber": "+918100314545",
+        "whatsappNumber": "+918100314545"
+      }
+    ]
+  },
+  {
+    "name": "Sushil Brasia Family",
+    "city": "Kolkata",
+    "group": "dad_side",
+    "guestType": "outstation",
+    "status": "pending",
+    "confirmedCount": 0,
+    "relationToGroom": "",
+    "notes": "Laxmi Bhabhi number not present",
+    "members": [
+      {
+        "name": "Sushil Brasia",
+        "contactNumber": "+919978608942",
+        "whatsappNumber": "+919978608942"
+      },
+      {
+        "name": "Laxmi Bhabhi",
+        "contactNumber": "+917845784599",
+        "whatsappNumber": "+917845784599"
+      }
+    ]
+  }
+]

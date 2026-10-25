@@ -1,0 +1,195 @@
+[
+    {
+        "name": "Kusum Mamiji Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family. Number is not there for Priti Shah, Bobby Shah",
+        "members": [
+            {
+                "name": "Kusum Mamiji",
+                "contactNumber": "+919836239187",
+                "whatsappNumber": "+919836239187"
+            },
+            {
+                "name": "Sanjay Shah",
+                "contactNumber": "+919674267996",
+                "whatsappNumber": "+919674267996"
+            },
+            {
+                "name": "Priti Shah",
+                "contactNumber": "+918888899999",
+                "whatsappNumber": "+918888899999"
+            },
+            {
+                "name": "Bobby Shah",
+                "contactNumber": "+918888899999",
+                "whatsappNumber": "+918888899999"
+            }
+        ]
+    },
+        {
+        "name": "Nikki Didi Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family. Number is not there for Jiaji",
+        "members": [
+            {
+                "name": "Nikki Didi",
+                "contactNumber": "+919711859600",
+                "whatsappNumber": "+919711859600"
+            },
+            {
+                "name": "Nikki Didi Jiaji",
+                "contactNumber": "+917852785200",
+                "whatsappNumber": "+917852785200"
+            }
+        ]
+    },
+    {
+        "name": "Usha Mamiji Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family",
+        "members": [
+            {
+                "name": "Usha Mamiji",
+                "contactNumber": "+917980475507",
+                "whatsappNumber": "+917980475507"
+            },
+            {
+                "name": "Anushka",
+                "contactNumber": "+919163473149",
+                "whatsappNumber": "+919163473149"
+            }
+        ]
+    },
+    {
+        "name": "Suresh Bhaiya Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family. Number is not there for Ramesh Bhaiya",
+        "members": [
+            {
+                "name": "Ramesh Bhaiya",
+                "contactNumber": "+918888899999",
+                "whatsappNumber": "+918888899999"
+            },
+            {
+                "name": "Mahesh Bhaiya",
+                "contactNumber": "+918888899999",
+                "whatsappNumber": "+918888899999"
+            },
+            {
+                "name": "Suresh Bhaiya",
+                "contactNumber": "+919073484549",
+                "whatsappNumber": "+919073484549"
+            }
+        ]
+    },
+    {
+        "name": "Arun Bhaiya Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family",
+        "members": [
+            {
+                "name": "Arun Bhaiya",
+                "contactNumber": "+917872745533",
+                "whatsappNumber": "+917872745533"
+            }
+        ]
+    },
+    {
+        "name": "Balkrishna Bhaiya Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family",
+        "members": [
+            {
+                "name": "Balkrishna Bhaiya",
+                "contactNumber": "+919820138330",
+                "whatsappNumber": "+919820138330"
+            }
+        ]
+    },
+    {
+        "name": "Manju Masi Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "",
+        "members": [
+            {
+                "name": "Manju Masi",
+                "contactNumber": "+919163984102",
+                "whatsappNumber": "+919163984102"
+            }
+        ]
+    },
+    {
+        "name": "Lalta Masi Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family",
+        "members": [
+            {
+                "name": "Lalta Masi",
+                "contactNumber": "+919051856121",
+                "whatsappNumber": "+919051856121"
+            }
+        ]
+    },
+    {
+        "name": "Pappi Masi Family",
+        "city": "Kolkata",
+        "group": "grandmother_side",
+        "guestType": "outstation",
+        "status": "pending",
+        "confirmedCount": 0,
+        "relationToGroom": "",
+        "notes": "Nani family. Number is not there for Aslak Mausaji",
+        "members": [
+            {
+                "name": "Aslak Mausaji",
+                "contactNumber": "+918888899999",
+                "whatsappNumber": "+918888899999"
+            },
+            {
+                "name": "Pappi Masi",
+                "contactNumber": "+918296478006",
+                "whatsappNumber": "+918296478006"
+            }
+        ]
+    }
+]
